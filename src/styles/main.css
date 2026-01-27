@@ -374,16 +374,26 @@ body.overdrive-mode #bg-canvas {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 3rem;
+    z-index: 1000;
+    /* iOS Stability: Force a persistent GPU layer for the container */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* Definitive iOS Fix: Isolate heavy effects in a pseudo-element */
+.glass-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     background: var(--glass-bg);
     border-bottom: 1px solid var(--glass-border);
-    /* iOS Fix: translate3d is more reliable than translateZ for Safari */
-    will-change: transform, opacity;
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
-    /* High z-index to stay above flickering content */
-    z-index: 1000;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .logo {
@@ -1011,15 +1021,17 @@ body.overdrive-mode #bg-canvas {
         padding-top: calc(1rem + env(safe-area-inset-top));
         flex-direction: column;
         gap: 1rem;
-        background: rgba(22, 27, 34, 0.95);
-        /* Solidify on mobile */
 
-        /* iOS Stability Fix: Remove transforms that conflict with address bar resizing */
-        transform: none !important;
-        -webkit-transform: none !important;
-        will-change: opacity;
-        /* Force compositing layer without 3D side effects */
-        opacity: 0.999;
+        /* Reset mobile hacks from previous attempts */
+        background: transparent;
+        transform: translate3d(0, 0, 0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+        opacity: 1 !important;
+    }
+
+    .glass-nav::before {
+        /* Ensure the pseudo-element background matches the mobile design */
+        background: rgba(22, 27, 34, 0.95);
     }
 
     .nav-logo {
