@@ -34,6 +34,8 @@ body {
     /* Prevent horizontal scroll from overflowing elements */
     margin: 0;
     padding: 0;
+    /* iOS Fix: Ensure body height is consistent */
+    min-height: -webkit-fill-available;
 }
 
 body {
@@ -376,7 +378,12 @@ body.overdrive-mode #bg-canvas {
     -webkit-backdrop-filter: blur(16px);
     background: var(--glass-bg);
     border-bottom: 1px solid var(--glass-border);
-    z-index: 100;
+    /* iOS Fix: translate3d is more reliable than translateZ for Safari */
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    /* High z-index to stay above flickering content */
+    z-index: 1000;
 }
 
 .logo {
@@ -953,7 +960,12 @@ body.overdrive-mode #bg-canvas {
     height: 100vh;
     z-index: -1;
     pointer-events: none;
-    /* Ensure clicks pass through */
+    /* iOS Fix: Use translate3d but keep height at viewport to avoid stretching stars */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    /* Avoid bounce gaps on iOS */
+    height: 100vh;
 }
 
 /* Make Tron canvas slightly behind particles if desired, or same level */

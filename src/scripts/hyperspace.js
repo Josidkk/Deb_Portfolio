@@ -33,8 +33,16 @@ export class HyperspaceSystem {
     }
 
     resize() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        const newWidth = window.innerWidth;
+        const newHeight = window.innerHeight;
+
+        // Mobile Fix: Only resize if the change is significant (not just address bar toggling)
+        if (this.canvas.width === newWidth && Math.abs(this.canvas.height - newHeight) < 100) {
+            return;
+        }
+
+        this.canvas.width = newWidth;
+        this.canvas.height = newHeight;
         this.cx = this.canvas.width / 2;
         this.cy = this.canvas.height / 2;
     }
