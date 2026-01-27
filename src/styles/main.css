@@ -1007,10 +1007,19 @@ body.overdrive-mode #bg-canvas {
     /* Navigation */
     .glass-nav {
         padding: 1rem 1.5rem;
+        /* iOS Fix: Handle safe areas (status bar/notch) */
+        padding-top: calc(1rem + env(safe-area-inset-top));
         flex-direction: column;
         gap: 1rem;
         background: rgba(22, 27, 34, 0.95);
         /* Solidify on mobile */
+
+        /* iOS Stability Fix: Remove transforms that conflict with address bar resizing */
+        transform: none !important;
+        -webkit-transform: none !important;
+        will-change: opacity;
+        /* Force compositing layer without 3D side effects */
+        opacity: 0.999;
     }
 
     .nav-logo {
