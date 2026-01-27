@@ -33,18 +33,23 @@ export class HyperspaceSystem {
     }
 
     resize() {
-        const newWidth = window.innerWidth;
-        const newHeight = window.innerHeight;
+        const parent = this.canvas.parentElement;
+        if (!parent) return;
 
-        // Mobile Fix: Only resize if the change is significant (not just address bar toggling)
-        if (this.canvas.width === newWidth && Math.abs(this.canvas.height - newHeight) < 100) {
-            return;
-        }
+        const oldWidth = this.canvas.width;
+        const newWidth = parent.offsetWidth;
+        const newHeight = parent.offsetHeight;
 
         this.canvas.width = newWidth;
         this.canvas.height = newHeight;
         this.cx = this.canvas.width / 2;
         this.cy = this.canvas.height / 2;
+
+        // If we previously had no size and now we do, re-init stars
+        if (oldWidth === 0 && newWidth > 0) {
+            this.stars = [];
+            this.initStars();
+        }
     }
 
     initStars() {

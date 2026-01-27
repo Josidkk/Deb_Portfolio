@@ -25,6 +25,9 @@ function terminateBoot() {
         app.classList.remove('hidden');
         app.classList.add('fade-in');
 
+        // Trigger resize to let components (like Hyperspace) calculate their size now that they are visible
+        window.dispatchEvent(new Event('resize'));
+
         // Cleanup
         setTimeout(() => {
             flash.remove();
