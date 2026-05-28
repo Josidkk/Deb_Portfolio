@@ -18,7 +18,7 @@ export class HyperspaceSystem {
 
         // --- VIDEO como fuente del halftone ---
         this.video = document.createElement('video');
-        this.video.src = './src/assets/batman2.mp4';
+        this.video.src = './public/assets/batman2.mp4';
         this.video.loop = true;
         this.video.muted = true;
         this.video.playsInline = true;
