@@ -1,3 +1,5 @@
+import batmanVideo from '/public/assets/batman2.mp4';
+
 export class HyperspaceSystem {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
@@ -18,7 +20,7 @@ export class HyperspaceSystem {
 
         // --- VIDEO como fuente del halftone ---
         this.video = document.createElement('video');
-        this.video.src = './public/assets/batman2.mp4';
+        this.video.src = batmanVideo;
         this.video.loop = true;
         this.video.muted = true;
         this.video.playsInline = true;
