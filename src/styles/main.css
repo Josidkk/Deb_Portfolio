@@ -1067,18 +1067,15 @@ section {
         padding-top: max(1rem, env(safe-area-inset-top));
         flex-direction: column;
         gap: 0.8rem;
-        background: transparent;
-        transform: none !important;
-        -webkit-transform: none !important;
-        top: 0;
-        left: 0;
-        opacity: 1 !important;
+        /* Remove transform: none to maintain GPU layer stability from desktop */
     }
 
     .glass-nav::before {
-        transform: translate3d(0, 0, 0);
-        -webkit-transform: translate3d(0, 0, 0);
-        background: rgba(22, 27, 34, 0.98);
+        /* Disable buggy backdrop-filter on mobile which causes disappearing elements during scroll */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(13, 17, 23, 0.98); /* Solid dark background instead of blur */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .nav-logo {
