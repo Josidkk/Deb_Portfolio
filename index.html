@@ -11,7 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
-    <link rel="icon" type="image/png" href="/src/assets/logo_white.png">
+    <link rel="icon" type="image/png" href="/src/assets/Logo_D.svg">
 
     <link rel="stylesheet" href="/src/styles/main.css">
     <link rel="stylesheet" href="/src/styles/animations.css">
@@ -27,7 +27,7 @@
     <!-- INTRO LAYER: LOGO ONLY -->
     <div id="loading-layer" class="loading-layer">
         <div class="logo blinking-logo">
-            <img src="/src/assets/logo_white.png" alt="Logo" class="loading-logo">
+            <img src="/src/assets/Logo_D.svg" alt="Logo" class="loading-logo">
         </div>
     </div>
 
@@ -35,10 +35,10 @@
     <div id="app" class="hidden">
         <nav class="glass-nav">
             <div class="logo logo-stacked">
-                <img src="/src/assets/logo_white_rct.png" alt="Logo" class="nav-logo">
+                <img src="/src/assets/Logo_D.svg" alt="Logo" class="nav-logo">
                 <div class="logo-text-box">
-                    <span class="logo-line-top">DEYBY</span>
-                    <span class="logo-line-bottom">JOSUE</span>
+                    <span class="logo-line-top"></span>
+                    <span class="logo-line-bottom"></span>
                 </div>
             </div>
             <ul class="nav-links">
@@ -52,12 +52,20 @@
         <main>
             <!-- HERO SECTION -->
             <section id="hero" class="hero-section">
-                <canvas id="bg-canvas" class="background-canvas"></canvas>
-                <div class="glow-orb"></div>
-                <h1 class="hero-title">Deyby Deras Cárdenas</h1>
-                <p class="hero-sub">{ Desarrollador de software }</p>
-                <div class="role-badge">
-                    Full Stack <span class="accent">Developer</span>
+                <!-- LEFT: Text Info -->
+                <div class="hero-col-left">
+                    <div class="role-badge console-badge">
+                        DEV • FULL STACK
+                    </div>
+                    <h1 class="hero-title">DEYBY<br>DERAS</h1>
+                    <p class="hero-sub">SOFTWARE DEVELOPER</p>
+                    <p class="hero-description">Desarrollador Full Stack con experiencia en.NET Core, React y
+                        arquitecturas modernas.- San Pedro Sula, Honduras.</p>
+                </div>
+
+                <!-- RIGHT: Halftone Canvas -->
+                <div class="hero-col-right">
+                    <canvas id="bg-canvas" class="background-canvas"></canvas>
                 </div>
             </section>
 

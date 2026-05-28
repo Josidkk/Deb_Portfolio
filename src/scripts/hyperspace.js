@@ -1,126 +1,151 @@
 export class HyperspaceSystem {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
-        this.ctx = this.canvas.getContext('2d');
-        this.stars = [];
-        this.warpSpeed = 0;
-        this.baseSpeed = 2;
-        this.targetSpeed = this.baseSpeed;
+        this.ctx = this.canvas.getContext('2d', { alpha: false });
+
+        // Configuración del Halftone
+        this.spacing = 9;       // Espacio entre puntos
+        this.maxRadius = 4.2;   // Radio máximo (zonas brillantes)
+        this.minRadius = 0.7;   // Radio mínimo (zonas oscuras — siempre hay punto!)
+
+        this.mouseX = -1000;
+        this.mouseY = -1000;
+        this.time = 0;
+
+        // Canvas offscreen para leer píxeles del video
+        this.offscreenCanvas = document.createElement('canvas');
+        this.offCtx = this.offscreenCanvas.getContext('2d', { willReadFrequently: true });
+
+        // --- VIDEO como fuente del halftone ---
+        this.video = document.createElement('video');
+        this.video.src = '/src/assets/batman2.mp4';
+        this.video.loop = true;
+        this.video.muted = true;
+        this.video.playsInline = true;
+        this.videoReady = false;
+
+        this.video.addEventListener('canplay', () => {
+            this.videoReady = true;
+            this.video.play();
+        });
 
         this.resize();
         window.addEventListener('resize', this.resize.bind(this));
 
-        // Interactions
-        this.canvas.addEventListener('mousedown', () => this.engageWarp());
-        this.canvas.addEventListener('mouseup', () => this.disengageWarp());
-        this.canvas.addEventListener('touchstart', () => this.engageWarp());
-        this.canvas.addEventListener('touchend', () => this.disengageWarp());
-
-        // Scroll detection for warp burst
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            const currentScrollY = window.scrollY;
-            const delta = Math.abs(currentScrollY - lastScrollY);
-            if (delta > 10) { // More sensitive
-                // Add speed, cap at 50
-                this.warpSpeed = Math.min(this.warpSpeed + 5, 50);
-            }
-            lastScrollY = currentScrollY;
+        // Interacción del mouse
+        window.addEventListener('mousemove', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouseX = e.clientX - rect.left;
+            this.mouseY = e.clientY - rect.top;
         });
 
-        this.initStars();
+        window.addEventListener('mouseleave', () => {
+            this.mouseX = -1000;
+            this.mouseY = -1000;
+        });
+
         this.animate();
     }
 
     resize() {
         const parent = this.canvas.parentElement;
         if (!parent) return;
-
-        const oldWidth = this.canvas.width;
-        const newWidth = parent.offsetWidth;
-        const newHeight = parent.offsetHeight;
-
-        this.canvas.width = newWidth;
-        this.canvas.height = newHeight;
-        this.cx = this.canvas.width / 2;
-        this.cy = this.canvas.height / 2;
-
-        // If we previously had no size and now we do, re-init stars
-        if (oldWidth === 0 && newWidth > 0) {
-            this.stars = [];
-            this.initStars();
-        }
-    }
-
-    initStars() {
-        const count = 800; // Increased for density
-        for (let i = 0; i < count; i++) {
-            this.stars.push(this.createStar());
-        }
-    }
-
-    createStar() {
-        return {
-            x: (Math.random() - 0.5) * this.canvas.width * 2.5,
-            y: (Math.random() - 0.5) * this.canvas.height * 2.5,
-            z: Math.random() * this.canvas.width,
-            pz: 0
-        };
-    }
-
-    engageWarp() {
-        this.targetSpeed = 40;
-    }
-
-    disengageWarp() {
-        this.targetSpeed = 2;
+        this.canvas.width = parent.offsetWidth;
+        this.canvas.height = parent.offsetHeight;
     }
 
     animate() {
-        // Trails
+        this.time += 0.04;
+
+        if (this.canvas.width === 0 || this.canvas.height === 0) {
+            this.resize();
+            requestAnimationFrame(this.animate.bind(this));
+            return;
+        }
+
         const isOverdrive = document.body.classList.contains('overdrive-mode');
-        this.ctx.fillStyle = isOverdrive ? 'rgba(0, 0, 0, 0.5)' : 'rgba(13, 17, 23, 0.4)';
+
+        // Fondo oscuro
+        this.ctx.fillStyle = isOverdrive ? '#000000' : '#0d1117';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Smooth speed transition
-        let driveSpeed = isOverdrive ? 80 : this.targetSpeed;
-        this.warpSpeed += (driveSpeed - this.warpSpeed) * (isOverdrive ? 0.05 : 0.02);
+        if (!this.videoReady) {
+            requestAnimationFrame(this.animate.bind(this));
+            return;
+        }
 
-        this.stars.forEach(star => {
-            star.pz = star.z;
-            star.z -= this.warpSpeed;
+        // Escalar el video para que llene el canvas (cover)
+        const vw = this.video.videoWidth;
+        const vh = this.video.videoHeight;
+        const cw = this.canvas.width;
+        const ch = this.canvas.height;
 
-            if (star.z <= 0) {
-                star.z = this.canvas.width;
-                star.pz = star.z;
-                star.x = (Math.random() - 0.5) * this.canvas.width * 2.5;
-                star.y = (Math.random() - 0.5) * this.canvas.height * 2.5;
+        const scale = Math.max(cw / vw, ch / vh);
+        const drawW = vw * scale;
+        const drawH = vh * scale;
+        const drawX = (cw - drawW) / 2;
+        const drawY = (ch - drawH) / 2;
+
+        // Actualizar offscreen canvas y leer el frame actual del video
+        this.offscreenCanvas.width = cw;
+        this.offscreenCanvas.height = ch;
+        this.offCtx.drawImage(this.video, drawX, drawY, drawW, drawH);
+        const pixelData = this.offCtx.getImageData(0, 0, cw, ch).data;
+
+        // Color de los puntos (blanco normal, rojo en overdrive)
+        this.ctx.fillStyle = isOverdrive ? '#ff0055' : '#ffffff';
+
+        const cols = Math.ceil(cw / this.spacing);
+        const rows = Math.ceil(ch / this.spacing);
+
+        this.ctx.beginPath();
+        for (let i = 0; i <= cols; i++) {
+            for (let j = 0; j <= rows; j++) {
+                const x = i * this.spacing;
+                const y = j * this.spacing;
+
+                const pixelIndex = (y * cw + x) * 4;
+                let brightness = 0;
+
+                if (pixelIndex >= 0 && pixelIndex < pixelData.length) {
+                    const r = pixelData[pixelIndex];
+                    const g = pixelData[pixelIndex + 1];
+                    const b = pixelData[pixelIndex + 2];
+
+                    // Luminancia DIRECTA: oscuro = puntos pequeños, luna/luces = puntos grandes
+                    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                    brightness = luminance;
+
+                    // NO cortamos en 0 — las zonas oscuras tendrán el punto mínimo
+                    // Solo potenciamos el contraste para que los brillos resalten más
+                    brightness = Math.pow(brightness, 0.65);
+                }
+
+                // Interacción del cursor — efecto lupa/ola
+                const dx = this.mouseX - x;
+                const dy = this.mouseY - y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const influenceRadius = 180;
+
+                let mouseInfluence = 0;
+                if (dist < influenceRadius) {
+                    mouseInfluence = Math.pow(1 - (dist / influenceRadius), 2) * 0.6;
+                }
+
+                let intensity = brightness + mouseInfluence;
+                intensity = Math.max(0, Math.min(1, intensity));
+
+                if (isOverdrive) intensity = Math.min(1, intensity * 1.6);
+
+                // Radio con un MÍNIMO garantizado — nunca hay espacio vacío en el grid
+                const radius = this.minRadius + intensity * (this.maxRadius - this.minRadius);
+
+                // Dibujamos SIEMPRE (el radio mínimo asegura que hay punto)
+                this.ctx.moveTo(x + radius, y);
+                this.ctx.arc(x, y, radius, 0, Math.PI * 2);
             }
-
-            const screenX = this.cx + (star.x / star.z) * 1000;
-            const screenY = this.cy + (star.y / star.z) * 1000;
-            const scale = (1 - star.z / this.canvas.width) * 3;
-
-            if (scale <= 0) return;
-
-            if (this.warpSpeed > 10) {
-                const tailZ = star.z + this.warpSpeed * (isOverdrive ? 4 : 2);
-                const tailX = this.cx + (star.x / tailZ) * 1000;
-                const tailY = this.cy + (star.y / tailZ) * 1000;
-
-                this.ctx.beginPath();
-                this.ctx.strokeStyle = isOverdrive ? `rgba(255, 255, 255, ${scale})` : `rgba(139, 233, 253, ${scale})`;
-                this.ctx.lineWidth = isOverdrive ? scale * 1.5 : scale;
-                this.ctx.moveTo(tailX, tailY);
-                this.ctx.lineTo(screenX, screenY);
-                this.ctx.stroke();
-            } else {
-                this.ctx.fillStyle = `rgba(255, 255, 255, ${scale})`;
-                this.ctx.beginPath();
-                this.ctx.arc(screenX, screenY, scale / 2, 0, Math.PI * 2);
-                this.ctx.fill();
-            }
-        });
+        }
+        this.ctx.fill();
 
         requestAnimationFrame(this.animate.bind(this));
     }

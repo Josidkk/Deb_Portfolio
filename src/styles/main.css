@@ -441,62 +441,107 @@ body.overdrive-mode #bg-canvas {
 /* HERO SECTION */
 .hero-section {
     min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    text-align: center;
     position: relative;
-    /* Ensure it's the anchor for the absolute canvas */
     z-index: 10;
     padding-top: 80px;
     overflow: hidden;
-    /* Contain the absolute canvas */
+    background: var(--bg-color);
+    padding-right: 4rem;
+}
+
+/* LEFT COLUMN - Text */
+.hero-col-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4rem 4rem 4rem 10%;
+    animation: fadeInUp 1s ease-out;
+    z-index: 20;
+}
+
+/* RIGHT COLUMN - Canvas container */
+.hero-col-right {
+    position: relative;
+    height: 65vh;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2.50rem;
+    ;
+
 }
 
 .hero-title {
-    font-size: 5rem;
-    font-weight: 800;
-    line-height: 1.1;
-    /* Animated Liquid Gradient */
-    background: linear-gradient(to right,
-            #f0f6fc 20%,
-            var(--primary-color) 40%,
-            var(--secondary-color) 60%,
-            #f0f6fc 80%);
-    background-size: 200% auto;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 5s linear infinite;
-
-    margin-bottom: 1rem;
+    font-size: 6.5rem;
+    font-family: var(--font-sans);
+    font-weight: 900;
+    line-height: 0.88;
+    color: #ffffff;
+    margin-bottom: 0.8rem;
     letter-spacing: -3px;
-    filter: drop-shadow(0 0 15px rgba(189, 147, 249, 0.3));
-    /* Subtle glow behind opacity */
-}
-
-@keyframes shine {
-    to {
-        background-position: 200% center;
-    }
+    text-transform: uppercase;
+    /* No glitch — clean bold white */
+    text-shadow: none;
 }
 
 .hero-sub {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    font-weight: 400;
-    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: #8b949e;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
 }
 
-.role-badge {
-    padding: 0.5rem 1.5rem;
-    background: rgba(189, 147, 249, 0.1);
-    border: 1px solid rgba(189, 147, 249, 0.3);
+.hero-description {
+    font-size: 0.95rem;
+    color: #6e7681;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.7;
+    margin-top: 0.5rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.15);
+    padding-left: 1rem;
+}
+
+.blinking-cursor {
+    animation: blink 1s step-end infinite;
+    color: #ffffff;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.console-badge {
+    padding: 0.4rem 1.2rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 50px;
-    color: var(--primary-color);
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
+    color: #8b949e;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.accent-text {
+    color: #ffffff;
+    font-weight: 700;
 }
 
 /* DASHBOARD GRID SYSTEM */
@@ -506,7 +551,7 @@ body.overdrive-mode #bg-canvas {
     padding: 2rem;
     padding-bottom: 160px;
     /* Reduced Space for Tron Race */
-    max-width: 1200px;
+    max-width: 95%;
     margin: 0 auto;
     /* Default Mobile: 1 column */
     grid-template-columns: 1fr;
@@ -971,10 +1016,8 @@ body.overdrive-mode #bg-canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    will-change: transform, opacity;
-    /* iOS Fix: Absolute positioning avoids fixed-repaint glitches during elastic scroll */
+    z-index: 1;
+    /* Canvas fills the right column container */
 }
 
 /* Make Tron canvas slightly behind particles if desired, or same level */
@@ -1008,41 +1051,38 @@ body.overdrive-mode #bg-canvas {
     height: 100%;
 }
 
+section {
+    width: 100%;
+}
+
+
 /* =========================================
    RESPONSIVE DESIGN (MOBILE)
    ========================================= */
-
 @media (max-width: 768px) {
 
     /* Navigation */
     .glass-nav {
         padding: 1rem 1.5rem;
-        /* iOS Fix: More robust safe-area handling + fallback */
         padding-top: max(1rem, env(safe-area-inset-top));
         flex-direction: column;
         gap: 0.8rem;
-
         background: transparent;
-        /* Remove transform from container to avoid vertical "jumps" on Safari */
         transform: none !important;
         -webkit-transform: none !important;
-
         top: 0;
         left: 0;
         opacity: 1 !important;
     }
 
     .glass-nav::before {
-        /* Keep the GPU hack on the empty background layer instead */
         transform: translate3d(0, 0, 0);
         -webkit-transform: translate3d(0, 0, 0);
         background: rgba(22, 27, 34, 0.98);
-        /* Slightly more opaque for better legibility */
     }
 
     .nav-logo {
         height: 40px;
-        /* Slightly larger since it's the only element now */
     }
 
     .logo-text-box {
@@ -1062,23 +1102,69 @@ body.overdrive-mode #bg-canvas {
         flex-wrap: wrap;
     }
 
-    /* Hero */
+    /* HERO NUEVO */
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 7rem 1.5rem 2rem 1.5rem;
+
+        min-height: auto;
+        gap: 2rem;
+    }
+
+    .hero-col-left {
+        width: 100%;
+        padding: 0;
+        align-items: center;
+        text-align: center;
+    }
+
     .hero-title {
-        font-size: 3rem;
-        /* Scale down from 5rem */
-        padding: 0 1rem;
+        font-size: 3.5rem;
+        line-height: 0.9;
+        letter-spacing: -2px;
+        margin-bottom: 1rem;
     }
 
     .hero-sub {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
+        letter-spacing: 4px;
+        margin-bottom: 1rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        line-height: 1.8;
+
+        padding-left: 0;
+        border-left: none;
+
+        max-width: 320px;
+        color: #8b949e;
+    }
+
+    .console-badge {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+    }
+
+    .hero-col-right {
+        width: 100%;
+        height: 220px;
+        border-radius: 1.5rem;
     }
 
     /* Grid Layout */
     .bento-grid {
         padding: 1rem;
         padding-bottom: 120px;
-        /* Ensure space for Tron footer */
         gap: 1rem;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .bento-card {
@@ -1101,6 +1187,28 @@ body.overdrive-mode #bg-canvas {
 
     .skill-item i {
         font-size: 2.5rem;
+    }
+
+    .bento-grid {
+        display: grid;
+
+        width: 100%;
+        max-width: 100%;
+
+        grid-template-columns: 1fr;
+
+        padding: 1rem;
+        padding-bottom: 120px;
+
+        gap: 1rem;
+
+        margin: 0 auto;
+
+        box-sizing: border-box;
+    }
+
+    .bento-card {
+        width: 100%;
     }
 }
 
