@@ -3,14 +3,13 @@ export class HyperspaceSystem {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d', { alpha: false });
 
-        // Halftone config
+        // Configuración halftone
         this.spacing = 9;
         this.maxRadius = 4.2;
         this.minRadius = 0.7;
 
         this.mouseX = -1000;
         this.mouseY = -1000;
-        this.time = 0;
 
         // Offscreen canvas
         this.offscreenCanvas = document.createElement('canvas');
@@ -21,38 +20,46 @@ export class HyperspaceSystem {
         // VIDEO
         this.video = document.createElement('video');
 
-        this.video.src = '/assets/batman2.mp4'; // 👈 IMPORTANTE: desde public/
+        this.video.src = '/assets/batman2.mp4'; // ✔ desde /public
         this.video.loop = true;
         this.video.muted = true;
         this.video.playsInline = true;
+        this.video.preload = 'auto';
+
         this.video.setAttribute('playsinline', '');
         this.video.setAttribute('webkit-playsinline', '');
-        this.video.preload = 'auto';
 
         this.videoReady = false;
 
-        // 🎯 SOLO ESTE FLUJO (no duplicado)
-        this.video.addEventListener('loadedmetadata', () => {
-            // NO asumir que ya hay frames listos
-            this.tryPlay();
-        });
+        // 🎯 UN SOLO PUNTO DE INICIO
+        this.startTriggered = false;
 
-        this.video.addEventListener('canplay', () => {
-            this.videoReady = true;
-        });
+        const startVideo = async () => {
+            if (this.startTriggered) return;
+            this.startTriggered = true;
 
-        // 🔥 iOS fallback obligatorio
-        const userStartPlay = async () => {
-            await this.tryPlay();
+            try {
+                await this.video.play();
+                this.videoReady = true;
+            } catch (e) {
+                // iOS puede bloquear hasta interacción real
+                this.startTriggered = false;
+            }
         };
 
-        window.addEventListener('touchstart', userStartPlay, { once: true });
-        window.addEventListener('click', userStartPlay, { once: true });
+        // 👇 SOLO 1 trigger real de usuario
+        window.addEventListener('touchstart', startVideo, { once: true });
+        window.addEventListener('click', startVideo, { once: true });
+
+        // fallback silencioso
+        this.video.addEventListener('loadeddata', () => {
+            startVideo();
+        });
 
         this.resize();
         window.addEventListener('resize', this.resize.bind(this));
 
-        // Mouse
+        // mouse
         window.addEventListener('mousemove', (e) => {
             const rect = this.canvas.getBoundingClientRect();
             this.mouseX = e.clientX - rect.left;
@@ -67,14 +74,6 @@ export class HyperspaceSystem {
         this.animate();
     }
 
-    async tryPlay() {
-        try {
-            await this.video.play();
-        } catch (e) {
-            // iOS puede bloquear autoplay hasta interacción
-        }
-    }
-
     resize() {
         const parent = this.canvas.parentElement;
         if (!parent) return;
@@ -84,10 +83,10 @@ export class HyperspaceSystem {
     }
 
     animate() {
-        this.time += 0.04;
+        const cw = this.canvas.width;
+        const ch = this.canvas.height;
 
-        if (this.canvas.width === 0 || this.canvas.height === 0) {
-            this.resize();
+        if (!cw || !ch) {
             requestAnimationFrame(this.animate.bind(this));
             return;
         }
@@ -96,8 +95,9 @@ export class HyperspaceSystem {
 
         // background
         this.ctx.fillStyle = isOverdrive ? '#000' : '#0d1117';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillRect(0, 0, cw, ch);
 
+        // ❌ aún no hay video listo
         if (!this.videoReady || this.video.readyState < 2) {
             requestAnimationFrame(this.animate.bind(this));
             return;
@@ -105,8 +105,6 @@ export class HyperspaceSystem {
 
         const vw = this.video.videoWidth;
         const vh = this.video.videoHeight;
-        const cw = this.canvas.width;
-        const ch = this.canvas.height;
 
         const scale = Math.max(cw / vw, ch / vh);
         const drawW = vw * scale;
@@ -114,7 +112,7 @@ export class HyperspaceSystem {
         const drawX = (cw - drawW) / 2;
         const drawY = (ch - drawH) / 2;
 
-        // IMPORTANT: resize offscreen only when needed
+        // offscreen size
         if (this.offscreenCanvas.width !== cw || this.offscreenCanvas.height !== ch) {
             this.offscreenCanvas.width = cw;
             this.offscreenCanvas.height = ch;
@@ -124,15 +122,15 @@ export class HyperspaceSystem {
 
         const pixelData = this.offCtx.getImageData(0, 0, cw, ch).data;
 
-        this.ctx.fillStyle = isOverdrive ? '#ff0055' : '#ffffff';
+        this.ctx.fillStyle = isOverdrive ? '#ff0055' : '#fff';
+        this.ctx.beginPath();
 
         const cols = Math.ceil(cw / this.spacing);
         const rows = Math.ceil(ch / this.spacing);
 
-        this.ctx.beginPath();
-
         for (let i = 0; i <= cols; i++) {
             for (let j = 0; j <= rows; j++) {
+
                 const x = i * this.spacing;
                 const y = j * this.spacing;
 
@@ -145,10 +143,8 @@ export class HyperspaceSystem {
                     const g = pixelData[index + 1];
                     const b = pixelData[index + 2];
 
-                    const luminance =
-                        (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-                    brightness = Math.pow(luminance, 0.65);
+                    const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                    brightness = Math.pow(lum, 0.65);
                 }
 
                 const dx = this.mouseX - x;
