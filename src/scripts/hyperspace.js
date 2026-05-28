@@ -28,8 +28,17 @@ export class HyperspaceSystem {
 
         this.video.addEventListener('canplay', () => {
             this.videoReady = true;
-            this.video.play();
+
+            this.video.setAttribute('playsinline', '');
+            this.video.setAttribute('webkit-playsinline', '');
+            this.video.muted = true;
+            this.video.autoplay = true;
+            this.video.preload = 'auto';
         });
+
+        this.video.play().catch(() => {
+ 
+});
 
         this.resize();
         window.addEventListener('resize', this.resize.bind(this));
