@@ -1,36 +1,54 @@
 export const cvData = {
     name: "Deyby Josue Deras Cardenas",
-    role: "Especialista en Desarrollo de Software",
+    role: "Desarrollador De Software Fullstack",
     contact: {
-        phone: "(504) 8929-0835",
-        email: "Deybyjosuederascardenas@gmail.com",
-        location: "Honduras, San Pedro Sula"
+        phone: "+504 89290835",
+        email: "deybyderas@gmail.com",
+        location: "San Pedro Sula, Honduras"
     },
-    summary: "Soy una persona proactiva, responsable y honrada, con una actitud humilde y tranquila que me permite desenvolverme con empatía y carisma en diferentes entornos. Me caracterizo por ser autodidacta, con gran capacidad para aprender de manera independiente y adaptarme a nuevos retos. Además, destaco como un resolutor de problemas, buscando siempre soluciones prácticas y efectivas que aporten valor al equipo y a la organización.",
+    summary: "Soy proactivo y responsable, me caracterizo por mi capacidad de aprendizaje y facilidad para adaptarme a nuevos desafíos. Con una sólida orientación a la resolución de problemas, enfocándome en generar soluciones prácticas y efectivas que aporten valor al equipo.",
     education: [
+        {
+            institution: "USAP | Universidad de San Pedro Sula",
+            degree: "Ingeniería en Tecnologías Computacionales",
+            year: "Actualidad",
+            description: "Cursando primer ingreso."
+        },
         {
             institution: "Academia de Programación AHM",
             degree: "Especialista en Desarrollo de Software",
             year: "2024",
             description: "Becario en la 8va Promoción. Formación intensiva en desarrollo Full Stack con tecnologías .NET y metodologías ágiles.",
             link: "https://www.ahm-honduras.com/?p=14048"
+        },
+        {
+            institution: "Centro Educación Media Gubernamental Patria",
+            degree: "Bachillerato Técnico Profesional en Informática",
+            year: "2024",
+            description: "La Lima, Honduras."
         }
     ],
     experience: [
         {
-            company: "Asociación Hondureña de maquiladores",
-            role: "Desarrollo de sistema SiDCOP",
-            period: "Nov 2024 - Actualidad",
-            description: "Desarrollo de sistema SiDCOP (Sistema de Distribución y Comercialización de Productos)"
+            company: "Asociación Hondureña de Maquiladores",
+            role: "Desarrollador de software",
+            period: "Oct 2024 - Oct 2025",
+            description: "Desarrollo y manejo de bases de datos en SQL Server. Desarrollo de backend con .NET Core. Desarrollo de aplicaciones web y móviles. Desarrollo de prototipos con Figma."
+        },
+        {
+            company: "Grupo Alza",
+            role: "Práctica Profesional",
+            period: "Ago 2024 - Sep 2024",
+            description: "Soporte técnico y auditoría a usuarios. Mantenimiento Preventivo y correctivo a portátiles."
         }
     ],
     skills: {
-        database: ["SQL Server"],
-        web: ["C#", "ASP.NET Framework", "MVC", "ASP.NET Core", "Javascript", "JQuery", "Ajax", "Bootstrap", "HTML5", "CSS3", "React", "Angular"],
+        database: ["SQL Server", "MySQL"],
+        web: ["C#", "ASP.NET Core", "ASP.NET Framework", "PHP", "Javascript", "JQuery", "HTML5", "CSS3", "React", "Angular", "NestJs"],
         desktop: ["C#"],
         mobile: ["Flutter"],
-        methodologies: ["SCRUM", "Onion Architecture"],
-        tools: ["Github", "Git"]
+        methodologies: ["SCRUM", "Trabajo en Equipo", "Resolución de Problemas"],
+        tools: ["Github", "Git", "Power Bi", "APIs RESTful"]
     },
     skillDetails: {
         "C#": "Lenguaje principal potente y versátil, utilizado para desarrollar desde aplicaciones robustas con .NET hasta lógica compleja de negocio.",
