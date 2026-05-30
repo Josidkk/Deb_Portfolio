@@ -1,6 +1,5 @@
 import { startBootSequence } from './scripts/boot.js';
 import { HyperspaceSystem } from './scripts/hyperspace.js';
-import { initTiltEffect } from './scripts/interactions.js';
 import { cvData } from './data.js';
 import { TronRace } from './scripts/tron-race.js';
 import { showToast } from './scripts/toast.js';

@@ -80,6 +80,16 @@ export class HyperspaceSystem {
 
         this.canvas.width = parent.offsetWidth;
         this.canvas.height = parent.offsetHeight;
+
+        if (window.innerWidth <= 768) {
+            this.spacing = 6;
+            this.maxRadius = 2.5;
+            this.minRadius = 0.4;
+        } else {
+            this.spacing = 9;
+            this.maxRadius = 4.2;
+            this.minRadius = 0.7;
+        }
     }
 
     animate() {

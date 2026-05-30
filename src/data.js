@@ -6,7 +6,7 @@ export const cvData = {
         email: "deybyderas@gmail.com",
         location: "San Pedro Sula, Honduras"
     },
-    summary: "Soy proactivo y responsable, me caracterizo por mi capacidad de aprendizaje y facilidad para adaptarme a nuevos desafíos. Con una sólida orientación a la resolución de problemas, enfocándome en generar soluciones prácticas y efectivas que aporten valor al equipo.",
+    summary: "Desarrollador de Software fullstack con experiencia reciente en .NET Core, C#, SQL Server, Flutter y desarrollo de APIs RESTful. He construido prototipos en Figma y soluciones web/mobile con bases de datos SQL, logrando mejoras en rendimiento y tiempos de entrega. Busco crear productos eficientes y mantenibles en entornos colaborativos.",
     education: [
         {
             institution: "USAP | Universidad de San Pedro Sula",
