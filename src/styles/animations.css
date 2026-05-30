@@ -127,7 +127,7 @@
 .reveal-fade.is-visible {
     opacity: 1;
     transform: none;
-    filter: none;
+
 }
 
 /* ── Stagger helpers (set by JS, or override in HTML) ─────── */
@@ -136,7 +136,7 @@
 /* ── Bento card reveal variant ───────────────────────────── */
 .bento-card.reveal-scale {
     transform: scale(0.97) translateY(24px);
-    filter: blur(1px);
+
 }
 
 /* ── Timeline items ─────────────────────────────────────── */
