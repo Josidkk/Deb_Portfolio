@@ -1,3 +1,9 @@
+/* ============================================================
+   animations.css — Fluid Scroll & UI Animations
+   ============================================================ */
+
+/* ── Boot sequence ──────────────────────────────────────── */
+
 @keyframes loadProgress {
     0% {
         transform: translateX(-100%);
@@ -9,28 +15,28 @@
 }
 
 .fade-out {
-    animation: fadeOut 0.8s forwards;
+    animation: fadeOut 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes fadeOut {
     to {
         opacity: 0;
         pointer-events: none;
-        transform: scale(0.95);
+        transform: scale(0.97);
+        filter: blur(4px);
     }
 }
 
 .fade-in {
     opacity: 0;
-    animation: fadeIn 1s forwards;
-    animation-delay: 0.2s;
-    /* Wait for loading screen to clear slightly */
+    animation: fadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.15s;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(16px);
     }
 
     to {
@@ -39,21 +45,267 @@
     }
 }
 
-/* Float Animation */
+/* ── Float (decorative elements) ────────────────────────── */
+
 @keyframes float {
-    0% {
+
+    0%,
+    100% {
         transform: translateY(0px);
     }
 
     50% {
         transform: translateY(-10px);
     }
-
-    100% {
-        transform: translateY(0px);
-    }
 }
 
 .floating {
     animation: float 6s ease-in-out infinite;
+}
+
+/* ── Hero entrance ──────────────────────────────────────── */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   SCROLL REVEAL SYSTEM
+   All elements start invisible; JS adds .is-visible when they
+   enter the viewport. Use --stagger-delay for sequenced items.
+   ============================================================ */
+
+/* Shared base */
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-scale,
+.reveal-fade {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition:
+        opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--stagger-delay, 0ms);
+}
+
+/* Starting positions */
+.reveal-up {
+    transform: translateY(44px);
+}
+
+.reveal-left {
+    transform: translateX(-40px);
+}
+
+.reveal-right {
+    transform: translateX(40px);
+}
+
+.reveal-scale {
+    transform: scale(0.94) translateY(18px);
+    filter: blur(2px);
+}
+
+.reveal-fade {
+    /* opacity-only, no movement */
+}
+
+/* ── Visible state (added by IntersectionObserver) ───────── */
+.reveal-up.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible,
+.reveal-scale.is-visible,
+.reveal-fade.is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* ── Stagger helpers (set by JS, or override in HTML) ─────── */
+/* e.g. <div class="reveal-up" style="--stagger-delay: 120ms"> */
+
+/* ── Bento card reveal variant ───────────────────────────── */
+.bento-card.reveal-scale {
+    transform: scale(0.97) translateY(24px);
+    filter: blur(1px);
+}
+
+/* ── Timeline items ─────────────────────────────────────── */
+.timeline-item.reveal-left {
+    transform: translateX(-28px);
+    border-left-color: transparent;
+    transition:
+        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.6s ease;
+    transition-delay: var(--stagger-delay, 0ms);
+}
+
+.timeline-item.reveal-left.is-visible {
+    border-left-color: #30363d;
+    /* restore original */
+}
+
+/* ============================================================
+   NAV SHRINK ON SCROLL
+   JS adds .nav-scrolled to #main-nav when scrollY > 60px
+   ============================================================ */
+
+.glass-nav {
+    transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-nav.nav-scrolled {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.glass-nav.nav-scrolled::before {
+    background: rgba(13, 17, 23, 0.96);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   A thin line at the very top of the viewport.
+   JS drives --scroll-pct (0–100) on :root.
+   ============================================================ */
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(var(--scroll-pct, 0) * 1%);
+    height: 2px;
+    background: linear-gradient(90deg,
+            var(--primary-color),
+            var(--secondary-color),
+            var(--accent-color));
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.08s linear;
+    box-shadow: 0 0 8px var(--secondary-color);
+}
+
+/* ============================================================
+   ACTIVE NAV LINK INDICATOR
+   JS adds .is-active to the <a> matching the current section.
+   ============================================================ */
+
+.nav-links a.is-active {
+    color: var(--text-color);
+}
+
+.nav-links a.is-active::after {
+    width: 100%;
+}
+
+/* ============================================================
+   SECTION TITLE UNDERLINE DRAW
+   Add .reveal-line to any element; JS triggers .is-visible.
+   ============================================================ */
+
+.reveal-line {
+    position: relative;
+    display: inline-block;
+}
+
+.reveal-line::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--secondary-color);
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--stagger-delay, 200ms);
+    box-shadow: 0 0 8px var(--secondary-color);
+}
+
+.reveal-line.is-visible::after {
+    width: 100%;
+}
+
+/* ============================================================
+   CONTACT ITEM HOVER SHIMMER
+   ============================================================ */
+
+@keyframes contactShimmer {
+    0% {
+        transform: translateX(-100%) skewX(-15deg);
+    }
+
+    100% {
+        transform: translateX(250%) skewX(-15deg);
+    }
+}
+
+.contact-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.06) 50%,
+            transparent 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.contact-item:hover::after {
+    opacity: 1;
+    animation: contactShimmer 0.8s ease forwards;
+}
+
+/* ============================================================
+   AMBIENT LIGHT PARALLAX
+   JS applies translateY() directly via inline style.
+   Transition smooths abrupt jumps between scroll events.
+   ============================================================ */
+
+.ambient-light {
+    transition: transform 0.12s linear;
+}
+
+/* ============================================================
+   REDUCED MOTION — respect OS preference
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal-up,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale,
+    .reveal-fade,
+    .timeline-item.reveal-left {
+        transition: opacity 0.4s ease !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    .floating {
+        animation: none;
+    }
+
+    .ambient-light {
+        transition: none;
+    }
+
+    body::before {
+        transition: none;
+    }
 }

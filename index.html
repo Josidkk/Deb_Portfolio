@@ -20,9 +20,6 @@
 </head>
 
 <body>
-    <!-- SOUNDS -->
-    <audio id="boot-sound" src="" preload="auto"></audio>
-    <audio id="type-sound" src="" preload="auto"></audio>
 
     <!-- INTRO LAYER: LOGO ONLY -->
     <div id="loading-layer" class="loading-layer">
@@ -33,7 +30,7 @@
 
     <!-- MAIN INTERFACE -->
     <div id="app" class="hidden">
-        <nav class="glass-nav">
+        <nav class="glass-nav" id="main-nav">
             <div class="logo logo-stacked">
                 <img src="/public/assets/Logo_D.svg" alt="Logo" class="nav-logo">
                 <div class="logo-text-box">
@@ -41,7 +38,15 @@
                     <span class="logo-line-bottom"></span>
                 </div>
             </div>
-            <ul class="nav-links">
+
+            <!-- Hamburger button (only visible on mobile) -->
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#about-card" data-text="ABOUT">Sobre</a></li>
                 <li><a href="#stack-card" data-text="SKILLS">Habilidades</a></li>
                 <li><a href="#exp-card" data-text="PROJECTS">Proyectos</a></li>

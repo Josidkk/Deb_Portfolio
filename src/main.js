@@ -18,13 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(isActive ? "⚠️ CYBER OVERDRIVE ACTIVATED ⚠️" : "System Re-stabilized");
     });
 
-    // GitHub Copy Logic
     // Universal Copy Logic
     document.addEventListener('click', (e) => {
         const copyBtn = e.target.closest('.copy-btn');
         if (copyBtn) {
             const url = copyBtn.getAttribute('data-copy');
-            const label = copyBtn.getAttribute('data-label') || 'Enlace'; // Default to 'Enlace'
+            const label = copyBtn.getAttribute('data-label') || 'Enlace';
             navigator.clipboard.writeText(url).then(() => {
                 showToast(`¡${label} copiado al portapapeles!`);
             }).catch(err => {
@@ -32,6 +31,30 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Hamburger menu toggle
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navLinks = document.getElementById('nav-links');
+
+    if (hamburgerBtn && navLinks) {
+        hamburgerBtn.addEventListener('click', () => {
+            const isOpen = hamburgerBtn.classList.toggle('is-open');
+            navLinks.classList.toggle('is-open');
+            hamburgerBtn.setAttribute('aria-expanded', isOpen);
+            // Prevent background scroll when menu is open
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        // Close menu when a nav link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('is-open');
+                navLinks.classList.remove('is-open');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+    }
 });
 
 // Helper to map simpler names to devicon classes
@@ -369,7 +392,7 @@ function renderContent() {
 function createBentoCard({ id, title, icon, content }) {
     const card = document.createElement('div');
     card.id = id;
-    card.className = 'bento-card'; // Add tilt class for interaction
+    card.className = 'bento-card reveal-up'; // Add reveal-up class for scroll animation
 
     card.innerHTML = `
         <div class="card-title">
@@ -383,19 +406,30 @@ function createBentoCard({ id, title, icon, content }) {
 }
 
 function setupInteractions() {
+    // Bidirectional scroll reveal observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 // Trigger when 15% of the card is visible
+    };
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                // Add visible class when entering the viewport
+                entry.target.classList.add('is-visible');
+            } else {
+                // Optional: remove class when leaving viewport to make it repeat
+                // We do it if we want the "experiencia fluida" disappearing and reappearing
+                const rect = entry.target.getBoundingClientRect();
+                // We only remove it if it goes out of view entirely.
+                // You can tweak this if you only want it to reveal once.
+                entry.target.classList.remove('is-visible');
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
-    document.querySelectorAll('.bento-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'all 0.6s ease-out';
+    document.querySelectorAll('.reveal-up').forEach(card => {
         observer.observe(card);
     });
 

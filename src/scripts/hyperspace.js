@@ -20,7 +20,7 @@ export class HyperspaceSystem {
         // VIDEO
         this.video = document.createElement('video');
 
-        this.video.src = '/assets/batman2.mp4'; // ✔ desde /public
+        this.video.src = '/assets/batman2.mp4';
         this.video.loop = true;
         this.video.muted = true;
         this.video.playsInline = true;
@@ -31,7 +31,10 @@ export class HyperspaceSystem {
 
         this.videoReady = false;
 
-        // 🎯 UN SOLO PUNTO DE INICIO
+        // Cache del último frame válido — evita el flash negro en el loop
+        this.lastPixelData = null;
+
+        // Un solo punto de inicio
         this.startTriggered = false;
 
         const startVideo = async () => {
@@ -47,11 +50,10 @@ export class HyperspaceSystem {
             }
         };
 
-        // 👇 SOLO 1 trigger real de usuario
         window.addEventListener('touchstart', startVideo, { once: true });
         window.addEventListener('click', startVideo, { once: true });
 
-        // fallback silencioso
+        // Fallback silencioso
         this.video.addEventListener('loadeddata', () => {
             startVideo();
         });
@@ -59,7 +61,7 @@ export class HyperspaceSystem {
         this.resize();
         window.addEventListener('resize', this.resize.bind(this));
 
-        // mouse
+        // Mouse
         window.addEventListener('mousemove', (e) => {
             const rect = this.canvas.getBoundingClientRect();
             this.mouseX = e.clientX - rect.left;
@@ -80,6 +82,10 @@ export class HyperspaceSystem {
 
         this.canvas.width = parent.offsetWidth;
         this.canvas.height = parent.offsetHeight;
+
+        // Al cambiar tamaño, invalidar el cache para evitar
+        // que un frame de resolución anterior se estire
+        this.lastPixelData = null;
 
         if (window.innerWidth <= 768) {
             this.spacing = 6;
@@ -103,34 +109,40 @@ export class HyperspaceSystem {
 
         const isOverdrive = document.body.classList.contains('overdrive-mode');
 
-        // background
+        // Fondo
         this.ctx.fillStyle = isOverdrive ? '#000' : '#0d1117';
         this.ctx.fillRect(0, 0, cw, ch);
 
-        // ❌ aún no hay video listo
-        if (!this.videoReady || this.video.readyState < 2) {
+        // Intentar capturar un nuevo frame del video
+        if (this.videoReady && this.video.readyState >= 2) {
+            const vw = this.video.videoWidth;
+            const vh = this.video.videoHeight;
+
+            const scale = Math.max(cw / vw, ch / vh);
+            const drawW = vw * scale;
+            const drawH = vh * scale;
+            const drawX = (cw - drawW) / 2;
+            const drawY = (ch - drawH) / 2;
+
+            if (this.offscreenCanvas.width !== cw || this.offscreenCanvas.height !== ch) {
+                this.offscreenCanvas.width = cw;
+                this.offscreenCanvas.height = ch;
+            }
+
+            this.offCtx.drawImage(this.video, drawX, drawY, drawW, drawH);
+
+            // Guardar siempre el último frame válido
+            this.lastPixelData = this.offCtx.getImageData(0, 0, cw, ch).data;
+        }
+
+        // Si aún no hay ningún frame, esperar sin dibujar nada
+        if (!this.lastPixelData) {
             requestAnimationFrame(this.animate.bind(this));
             return;
         }
 
-        const vw = this.video.videoWidth;
-        const vh = this.video.videoHeight;
-
-        const scale = Math.max(cw / vw, ch / vh);
-        const drawW = vw * scale;
-        const drawH = vh * scale;
-        const drawX = (cw - drawW) / 2;
-        const drawY = (ch - drawH) / 2;
-
-        // offscreen size
-        if (this.offscreenCanvas.width !== cw || this.offscreenCanvas.height !== ch) {
-            this.offscreenCanvas.width = cw;
-            this.offscreenCanvas.height = ch;
-        }
-
-        this.offCtx.drawImage(this.video, drawX, drawY, drawW, drawH);
-
-        const pixelData = this.offCtx.getImageData(0, 0, cw, ch).data;
+        // Usar el frame actual o el último válido (durante el loop del video)
+        const pixelData = this.lastPixelData;
 
         this.ctx.fillStyle = isOverdrive ? '#ff0055' : '#fff';
         this.ctx.beginPath();
