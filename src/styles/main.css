@@ -274,7 +274,14 @@ body.overdrive-mode #bg-canvas {
 .loading-logo {
     height: 200px;
     width: auto;
+    max-width: 80vw;
     filter: drop-shadow(0 0 25px var(--primary-color));
+}
+
+@media (max-width: 768px) {
+    .loading-logo {
+        height: 120px;
+    }
 }
 
 @keyframes logoGlitch {
