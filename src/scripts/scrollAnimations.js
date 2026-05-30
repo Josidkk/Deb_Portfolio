@@ -110,17 +110,17 @@ function initNavShrink() {
 
 // ── 4. Scroll progress bar ───────────────────────────────────
 
-// function initProgressBar() {
-//     const update = () => {
-//         const scrolled = window.scrollY;
-//         const max      = document.documentElement.scrollHeight - window.innerHeight;
-//         const pct      = max > 0 ? (scrolled / max) * 100 : 0;
-//         document.documentElement.style.setProperty('--scroll-pct', pct.toFixed(2));
-//     };
+function initProgressBar() {
+    const update = () => {
+        const scrolled = window.scrollY;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? (scrolled / max) * 100 : 0;
+        document.documentElement.style.setProperty('--scroll-pct', pct.toFixed(2));
+    };
 
-//     window.addEventListener('scroll', update, { passive: true });
-//     update();
-// }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+}
 
 // ── 5. Active nav link ───────────────────────────────────────
 

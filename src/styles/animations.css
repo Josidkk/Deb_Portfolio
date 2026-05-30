@@ -190,8 +190,7 @@ body::before {
     height: 2px;
     background: linear-gradient(90deg,
             var(--primary-color),
-            var(--secondary-color),
-            var(--accent-color));
+            var(--secondary-color));
     z-index: 9999;
     pointer-events: none;
     transition: width 0.08s linear;
