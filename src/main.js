@@ -41,11 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const isOpen = hamburgerBtn.classList.toggle('is-open');
             navLinks.classList.toggle('is-open');
             hamburgerBtn.setAttribute('aria-expanded', isOpen);
-            // Prevent background scroll when menu is open
             document.body.style.overflow = isOpen ? 'hidden' : '';
         });
 
-        // Close menu when a nav link is clicked
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburgerBtn.classList.remove('is-open');
@@ -61,12 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
 const getIconClass = (name) => {
     const map = {
         'c#': 'csharp-plain',
-        'asp.net framework': 'dotnetcore-plain', // Close enough representation
+        'asp.net framework': 'dotnetcore-plain',
         'mvc': 'dotnetcore-plain',
         'asp.net core': 'dotnetcore-plain',
         'javascript': 'javascript-plain',
         'jquery': 'jquery-plain',
-        'ajax': 'javascript-plain', // No specific ajax icon
+        'ajax': 'javascript-plain',
         'bootstrap': 'bootstrap-plain',
         'html 5': 'html5-plain',
         'html5': 'html5-plain',
@@ -76,10 +74,10 @@ const getIconClass = (name) => {
         'angular': 'angularjs-plain',
         'sql server': 'microsoftsqlserver-plain',
         'flutter': 'flutter-plain',
-        'scrum': 'jira-plain', // Metaphorical
+        'scrum': 'jira-plain',
         'github': 'github-original',
         'git': 'git-plain',
-        'power bi': 'yun-plain' // Fallback or closest
+        'power bi': 'yun-plain'
     };
     const key = name.toLowerCase().trim();
     return `devicon-${map[key] || 'devicon-plain'}`;
@@ -87,27 +85,16 @@ const getIconClass = (name) => {
 
 function renderContent() {
     const contentDisplay = document.getElementById('content-display');
-    contentDisplay.className = 'bento-grid'; // Use grid layout
+    contentDisplay.className = 'bento-grid';
 
-    // 1. ABOUT CARD (Large, span 2 cols if possible)
-    const aboutCard = createBentoCard({
-        id: 'about-card',
-        title: 'Sobre Mí',
-        icon: 'fas fa-user-astronaut', // FontAwesome or generic placeholder
-        content: `<p style="line-height: 1.6; color: #c9d1d9;">${cvData.summary}</p>`
-    });
-
-    // 2. SKILLS CARD (Cyber Marquee)
+    // ─── BUILD MARQUEE HTML BEFORE aboutCard ───────────────────────────────
     const allSkills = [
         ...cvData.skills.web,
         ...cvData.skills.database,
         ...cvData.skills.mobile,
         ...cvData.skills.tools
     ];
-    // Remove duplicates
     const uniqueSkills = [...new Set(allSkills)];
-
-    // DUPLICATE content 2-3 times to cover the scroll area
     const loopedSkills = [...uniqueSkills, ...uniqueSkills, ...uniqueSkills];
 
     const skillsGridHtml = loopedSkills.map(skill => `
@@ -117,27 +104,115 @@ function renderContent() {
         </div>
     `).join('');
 
-    const skillsCard = createBentoCard({
-        id: 'stack-card',
-        title: 'Tech Stack',
+    // ─── 1. ABOUT CARD (con marquee embebido debajo del párrafo) ───────────
+    const aboutCard = createBentoCard({
+        id: 'about-card',
+        title: '',
         icon: '',
         content: `
-            <div class="marquee-container">
-                <div class="marquee-content">
-                    ${skillsGridHtml}
+        <section class="about-section">
+
+            <div class="about-top">
+
+                <div class="avatar-ring">
+                    <div class="avatar-ring">
+                        <img
+                            src="./assets/Foto_Formal_DeybyDeras.jpeg"
+                            alt="Mi foto"
+                            class="avatar-photo"
+                        >
+                        <svg viewBox="0 0 130 130" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="rg" x1="0%" y1="0%"
+                                                x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="rgba(255,255,255,0.5)" />
+                                    <stop offset="50%" stop-color="#ff79c6" />
+                                    <stop offset="100%" stop-color="rgba(255,255,255,0.3)" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="65" cy="65" r="62"
+                                    stroke="url(#rg)"
+                                    stroke-width="1.5"
+                                    fill="none"
+                                    opacity="0.6"/>
+                            <circle cx="65" cy="65" r="55"
+                                    fill="rgba(255,255,255,0.02)"/>
+                            <circle cx="65" cy="3" r="2"
+                                    fill="rgba(255,255,255,0.5)"/>
+                            <circle cx="65" cy="127" r="2"
+                                    fill="#ff79c6"
+                                    opacity="0.8"/>
+                            <circle cx="3" cy="65" r="2"
+                                    fill="rgba(255,255,255,0.3)"/>
+                            <circle cx="127" cy="65" r="2"
+                                    fill="rgba(255,255,255,0.3)"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="about-content">
+                    <span class="about-label">• SOBRE MÍ</span>
+
+                    <h2 class="about-heading">
+                        Construyendo
+                        soluciones<span> web</span></br> y
+                        <span>móviles</span>
+                    </h2>
+
+                    <p class="about-description">
+                        Me apasiona desarrollar software que resuelve problemas reales
+                        y genera impacto. Enfocado en crear aplicaciones escalables,
+                        seguras y mantenibles, utilizando tecnologías modernas y
+                        buenas prácticas de desarrollo. </p>
+                     
+                   <p class="about-description">
+                        Tengo experiencia colaborando en equipos multidisciplinarios,
+                    participando en el diseño, desarrollo y mejora continua de
+                    soluciones digitales enfocadas en rendimiento y experiencia
+                    de usuario.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- ✅ STACK AQUÍ, ocupando todo el ancho debajo de la imagen y el texto -->
+            <div class="marquee-row">
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        ${skillsGridHtml}
+                    </div>
+                </div>
+                <a href="#" class="ver-mas-btn" id="view-all-skills">
+                    Ver más <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="about-footer">
+                <p>
+                    
+                </p>
+                <div class="about-status">
+                    <span class="location">
+                         ● Honduras
+                    </span>
+                    <span class="availability">
+                        ● Disponible para proyectos 
+                    </span>
                 </div>
             </div>
-            <a href="#" class="ver-mas-btn" id="view-all-skills">Ver más <i class="fas fa-arrow-right"></i></a>
+
+        </section>
         `
     });
 
-    // Modal elements
+    // ─── MODAL SETUP ───────────────────────────────────────────────────────
     const modal = document.getElementById('skill-modal');
     const modalBackdrop = modal.querySelector('.modal-backdrop');
     const modalClose = document.getElementById('modal-close');
     const modalContent = modal.querySelector('.modal-content');
 
-    // Helper to find category
     const getSkillCategory = (skillName) => {
         for (const [cat, list] of Object.entries(cvData.skills)) {
             if (list.includes(skillName)) {
@@ -155,7 +230,6 @@ function renderContent() {
         return 'Tecnología';
     };
 
-    // Open Individual Skill Modal
     const openSkillModal = (skillName) => {
         const description = cvData.skillDetails[skillName] || "Especialista en esta tecnología con enfoque en soluciones escalables.";
         const category = getSkillCategory(skillName);
@@ -180,7 +254,6 @@ function renderContent() {
         document.body.style.overflow = 'hidden';
     };
 
-    // Open All Skills Modal
     const openAllSkillsModal = () => {
         const allSkillsHtml = Object.entries(cvData.skillDetails).map(([name, desc]) => `
             <div class="skill-list-item">
@@ -210,9 +283,7 @@ function renderContent() {
         document.body.style.overflow = 'hidden';
     };
 
-    // Click Listeners
     document.addEventListener('click', (e) => {
-        // Individual skill click
         const skillItem = e.target.closest('.skill-item');
         if (skillItem) {
             const skillName = skillItem.getAttribute('data-skill');
@@ -220,7 +291,6 @@ function renderContent() {
             return;
         }
 
-        // Ver más click
         const viewAllBtn = e.target.closest('#view-all-skills');
         if (viewAllBtn) {
             e.preventDefault();
@@ -229,25 +299,19 @@ function renderContent() {
         }
     });
 
-    // Close Modal Logic
     const closeModal = () => {
         modal.classList.add('hidden');
-        document.body.style.overflow = ''; // Restore scroll
+        document.body.style.overflow = '';
     };
 
     modalClose.addEventListener('click', closeModal);
     modalBackdrop.addEventListener('click', closeModal);
 
-    // Escape key to close
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
 
-    // Remove default card title/padding for purely visual marquee if preferred, 
-    // but `createBentoCard` adds title. Let's hide it via CSS for this ID if empty.
-
-
-    // 2.5 EDUCATION CARD (New)
+    // ─── 2. EDUCATION CARD ─────────────────────────────────────────────────
     const eduHtml = cvData.education.map(edu => `
         <div class="timeline-item">
             <span class="timeline-date">${edu.year}</span>
@@ -265,11 +329,11 @@ function renderContent() {
     const eduCard = createBentoCard({
         id: 'edu-card',
         title: 'Educación',
-        icon: 'fas fa-graduation-cap',
+        icon: '',
         content: `<div class="timeline-wrapper">${eduHtml}</div>`
     });
 
-    // 3. EXPERIENCE CARD (Timeline)S
+    // ─── 3. EXPERIENCE CARD ────────────────────────────────────────────────
     const expHtml = cvData.experience.map(job => `
         <div class="timeline-item">
             <span class="timeline-date">${job.period}</span>
@@ -282,14 +346,13 @@ function renderContent() {
     const expCard = createBentoCard({
         id: 'exp-card',
         title: 'Experiencia',
-        icon: 'fas fa-briefcase',
+        icon: '',
         content: `<div class="timeline-wrapper">${expHtml}</div>`
     });
 
-    // 4. CONTACT CARD
+    // ─── 4. CONTACT CARD ───────────────────────────────────────────────────
     const contactHtml = `
         <div class="contact-wrapper">
-            <!-- Email -->
             <div class="contact-item">
                 <div class="icon-box">
                     <i class="fas fa-envelope"></i>
@@ -307,8 +370,7 @@ function renderContent() {
                     </button>
                 </div>
             </div>
-            
-            <!-- Phone -->
+
             <div class="contact-item">
                 <div class="icon-box">
                     <i class="fab fa-whatsapp"></i>
@@ -326,8 +388,7 @@ function renderContent() {
                     </button>
                 </div>
             </div>
-            
-            <!-- LinkedIn -->
+
             <div class="contact-item">
                 <div class="icon-box">
                     <i class="fab fa-linkedin-in"></i>
@@ -346,7 +407,6 @@ function renderContent() {
                 </div>
             </div>
 
-            <!-- GitHub -->
             <div class="contact-item">
                 <div class="icon-box">
                     <i class="fab fa-github"></i>
@@ -365,7 +425,6 @@ function renderContent() {
                 </div>
             </div>
 
-            <!-- Location (Creative Badge) -->
             <div class="location-badge">
                 <div class="loc-icon">
                     <div class="pulse-dot"></div>
@@ -375,15 +434,16 @@ function renderContent() {
             </div>
         </div>
     `;
+
     const contactCard = createBentoCard({
         id: 'contact-card',
         title: 'Contacto',
-        icon: 'fas fa-paper-plane',
+        icon: '',
         content: contactHtml
     });
 
+    // ─── APPEND AL DOM (sin skillsCard separado) ───────────────────────────
     contentDisplay.appendChild(aboutCard);
-    contentDisplay.appendChild(skillsCard);
     contentDisplay.appendChild(eduCard);
     contentDisplay.appendChild(expCard);
     contentDisplay.appendChild(contactCard);
@@ -392,12 +452,17 @@ function renderContent() {
 function createBentoCard({ id, title, icon, content }) {
     const card = document.createElement('div');
     card.id = id;
-    card.className = 'bento-card reveal-up'; // Add reveal-up class for scroll animation
+    card.className = 'bento-card reveal-up';
+
+    const iconHtml = icon ? `<i class="${icon}"></i>` : '';
+    const titleHtml = title ? `
+        <div class="card-title">
+            ${iconHtml}
+            <span>${title}</span> 
+        </div>` : '';
 
     card.innerHTML = `
-        <div class="card-title">
-            <span>${title}</span> 
-        </div>
+        ${titleHtml}
         <div class="card-content">
             ${content}
         </div>
@@ -406,24 +471,17 @@ function createBentoCard({ id, title, icon, content }) {
 }
 
 function setupInteractions() {
-    // Bidirectional scroll reveal observer
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.15 // Trigger when 15% of the card is visible
+        rootMargin: '0px 0px -150px 0px',
+        threshold: 0.15
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Add visible class when entering the viewport
                 entry.target.classList.add('is-visible');
             } else {
-                // Optional: remove class when leaving viewport to make it repeat
-                // We do it if we want the "experiencia fluida" disappearing and reappearing
-                const rect = entry.target.getBoundingClientRect();
-                // We only remove it if it goes out of view entirely.
-                // You can tweak this if you only want it to reveal once.
                 entry.target.classList.remove('is-visible');
             }
         });
@@ -433,7 +491,6 @@ function setupInteractions() {
         observer.observe(card);
     });
 
-    // Smooth scroll for nav links
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
@@ -443,7 +500,7 @@ function setupInteractions() {
                 const targetElement = document.getElementById(targetId);
 
                 if (targetElement) {
-                    const offset = 100; // Nav height + padding
+                    const offset = 100;
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -455,6 +512,4 @@ function setupInteractions() {
             }
         });
     });
-
-    // NO TILT initialization
 }

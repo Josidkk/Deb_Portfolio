@@ -26,33 +26,40 @@
         <div class="logo blinking-logo">
             <img src="/public/assets/Logo_D.svg" alt="Logo" class="loading-logo">
         </div>
+        <div class="from-deyby">
+            <span class="from-text">from</span>
+            <span class="deyby-text">Deyby</span>
+        </div>
     </div>
 
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress"></div>
+
     <!-- MAIN INTERFACE -->
-    <div id="app" class="hidden">
-        <nav class="glass-nav" id="main-nav">
-            <div class="logo logo-stacked">
-                <img src="/public/assets/Logo_D.svg" alt="Logo" class="nav-logo">
-                <div class="logo-text-box">
-                    <span class="logo-line-top"></span>
-                    <span class="logo-line-bottom"></span>
-                </div>
+    <nav class="glass-nav" id="main-nav">
+        <div class="logo logo-stacked">
+            <img src="/public/assets/Logo_D.svg" alt="Logo" class="nav-logo">
+            <div class="logo-text-box">
+                <span class="logo-line-top"></span>
+                <span class="logo-line-bottom"></span>
             </div>
+        </div>
 
-            <!-- Hamburger button (only visible on mobile) -->
-            <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+        <!-- Hamburger button (only visible on mobile) -->
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#about-card" data-text="ABOUT">Sobre</a></li>
-                <li><a href="#stack-card" data-text="SKILLS">Habilidades</a></li>
-                <li><a href="#exp-card" data-text="PROJECTS">Proyectos</a></li>
-                <li><a href="#contact-card" data-text="CONTACT">Contacto</a></li>
-            </ul>
-        </nav>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#hero" data-text="HOME" class="is-active">Inicio</a></li>
+            <li><a href="#about-card" data-text="ABOUT">Sobre</a></li>
+            <li><a href="#exp-card" data-text="PROJECTS">Proyectos</a></li>
+            <li><a href="#contact-card" data-text="CONTACT">Contacto</a></li>
+        </ul>
+    </nav>
+    <div id="app" class="hidden">
 
         <main>
             <!-- HERO SECTION -->
@@ -67,16 +74,35 @@
                     <p class="hero-description">Desarrollador Full Stack con experiencia en.NET Core, React y
                         arquitecturas modernas.- San Pedro Sula, Honduras.</p>
 
-                    <a href="/public/assets/Deyby_Cárdenas_Cv_.pdf" download="Deyby_Cardenas_CV.pdf"
-                        class="download-btn">
-                        <i class="fas fa-file-download"></i>
-                        <span>Descargar CV</span>
-                    </a>
+                    <div class="hero-buttons desktop-only">
+                        <a href="/public/assets/Deyby_Cárdenas_Cv_.pdf" download="Deyby_Cardenas_CV.pdf"
+                            class="download-btn">
+                            <i class="fas fa-file-download"></i>
+                            <span>Descargar CV</span>
+                        </a>
+                        <a href="https://wa.me/50489290835" target="_blank" class="download-btn hire-me-btn">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Contrátame</span>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- RIGHT: Halftone Canvas -->
                 <div class="hero-col-right">
                     <canvas id="bg-canvas" class="background-canvas"></canvas>
+                </div>
+
+                <!-- MOBILE BUTTONS (Below Batman) -->
+                <div class="hero-buttons mobile-only">
+                    <a href="/public/assets/Deyby_Cárdenas_Cv_.pdf" download="Deyby_Cardenas_CV.pdf"
+                        class="download-btn">
+                        <i class="fas fa-file-download"></i>
+                        <span>Descargar CV</span>
+                    </a>
+                    <a href="https://wa.me/50489290835" target="_blank" class="download-btn hire-me-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Contrátame</span>
+                    </a>
                 </div>
             </section>
 
@@ -84,10 +110,10 @@
             <section id="content-display"></section>
         </main>
 
-        <!-- AMBIENT LIGHTS -->
+        <!-- AMBIENT LIGHTS
         <div class="ambient-light light-1"></div>
         <div class="ambient-light light-2"></div>
-        <div class="ambient-light light-3"></div>
+        <div class="ambient-light light-3"></div> -->
 
         <!-- Tron Pixel Race Easter Egg -->
         <div class="tron-race-container">
