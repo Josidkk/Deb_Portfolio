@@ -59,7 +59,12 @@ export class HyperspaceSystem {
         });
 
         this.resize();
-        window.addEventListener('resize', this.resize.bind(this));
+        if (this.canvas.parentElement) {
+            const observer = new ResizeObserver(() => this.resize());
+            observer.observe(this.canvas.parentElement);
+        } else {
+            window.addEventListener('resize', this.resize.bind(this));
+        }
 
         // Mouse
         window.addEventListener('mousemove', (e) => {
