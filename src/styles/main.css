@@ -1410,22 +1410,34 @@ section {
         border-color: var(--secondary-color);
     }
 
-
-
     .hero-col-right {
         width: 100%;
-        flex: 1;
-        min-height: 180px;
-        max-height: 900px;
+
+        /* 1. Controlamos la altura de forma fija en móvil (un punto medio de tu diseño original) */
+        height: 210px;
+
+        /* 2. O si prefieres usar proporciones, usa un ratio horizontal (descomenta esta y comenta la de arriba) */
+        /* aspect-ratio: 1.5; */
+
         border-radius: 1.5rem;
         margin-bottom: 1rem;
-
-        /* --- AGREGAR ESTO --- */
         position: relative;
         overflow: hidden;
-        /* Vital para que el video no se salga y respete el border-radius */
+
+        /* Mantenemos el truco de iOS para que no parpadee ni se corte */
         transform: translateZ(0);
-        /* Fuerza a iOS a renderizar esta caja sin parpadeos/cortes */
+        -webkit-transform: translateZ(0);
+    }
+
+    /* Asegúrate de que el canvas o video interno siga ocupando el 100% absoluto */
+    .hero-col-right canvas,
+    .hero-col-right video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .desktop-only {
