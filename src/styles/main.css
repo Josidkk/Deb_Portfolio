@@ -1202,7 +1202,6 @@ body.overdrive-mode #bg-canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     z-index: 1;
     /* Canvas fills the right column container */
 }
