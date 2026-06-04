@@ -564,7 +564,6 @@ body.overdrive-mode #bg-canvas {
     position: relative;
     z-index: 10;
     padding-top: 80px;
-    overflow: hidden;
     background: transparent;
     padding-right: 4rem;
 }
@@ -718,6 +717,56 @@ body.overdrive-mode #bg-canvas {
 .accent-text {
     color: #ffffff;
     font-weight: 700;
+}
+
+/* SCROLL DOWN ARROW */
+.scroll-down-arrow {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-color);
+    font-size: 2rem;
+    opacity: 0.6;
+    animation: bounceArrow 2s infinite;
+    transition: opacity 0.5s ease;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.scroll-down-arrow.hidden-arrow {
+    opacity: 0;
+}
+
+@keyframes bounceArrow {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-7px);
+    }
+}
+
+@keyframes bounceArrowMobile {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-7px);
+    }
 }
 
 /* DASHBOARD GRID SYSTEM */
@@ -1464,6 +1513,16 @@ section {
         letter-spacing: 1px;
         white-space: nowrap;
         gap: 0.5rem;
+    }
+
+    .scroll-down-arrow {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        transform: translateY(0);
+        animation: bounceArrowMobile 2s infinite;
     }
 
     /* Grid Layout */

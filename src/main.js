@@ -491,6 +491,17 @@ function setupInteractions() {
         observer.observe(card);
     });
 
+    const scrollArrow = document.getElementById('scroll-arrow');
+    if (scrollArrow) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                scrollArrow.classList.add('hidden-arrow');
+            } else {
+                scrollArrow.classList.remove('hidden-arrow');
+            }
+        });
+    }
+
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
