@@ -1416,9 +1416,16 @@ section {
         width: 100%;
         flex: 1;
         min-height: 180px;
-        max-height: 280px;
+        max-height: 900px;
         border-radius: 1.5rem;
         margin-bottom: 1rem;
+
+        /* --- AGREGAR ESTO --- */
+        position: relative;
+        overflow: hidden;
+        /* Vital para que el video no se salga y respete el border-radius */
+        transform: translateZ(0);
+        /* Fuerza a iOS a renderizar esta caja sin parpadeos/cortes */
     }
 
     .desktop-only {
