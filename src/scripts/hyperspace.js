@@ -18,16 +18,28 @@ export class HyperspaceSystem {
         });
 
         // VIDEO
+        // VIDEO
         this.video = document.createElement('video');
 
         this.video.src = '/assets/batman2.mp4';
         this.video.loop = true;
         this.video.muted = true;
         this.video.playsInline = true;
+        this.video.autoplay = true;
         this.video.preload = 'auto';
+        this.video.crossOrigin = 'anonymous'; // Importante para extraer pixeles en Canvas
 
+        // Forzar los atributos explícitamente (Crítico para iOS)
+        this.video.setAttribute('autoplay', '');
+        this.video.setAttribute('muted', '');
         this.video.setAttribute('playsinline', '');
         this.video.setAttribute('webkit-playsinline', '');
+
+        // Insertarlo en el DOM pero de forma invisible para que Safari no detenga la decodificación
+        this.video.style.position = 'absolute';
+        this.video.style.opacity = '0';
+        this.video.style.pointerEvents = 'none';
+        document.body.appendChild(this.video);
 
         this.videoReady = false;
 
@@ -47,14 +59,15 @@ export class HyperspaceSystem {
             } catch (e) {
                 // iOS puede bloquear hasta interacción real
                 this.startTriggered = false;
+                console.warn('Autoplay bloqueado por el navegador. Esperando interacción.', e);
             }
         };
 
         window.addEventListener('touchstart', startVideo, { once: true });
         window.addEventListener('click', startVideo, { once: true });
 
-        // Fallback silencioso
-        this.video.addEventListener('loadeddata', () => {
+        // Fallback
+        this.video.addEventListener('canplay', () => {
             startVideo();
         });
 
