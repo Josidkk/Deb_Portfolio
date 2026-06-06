@@ -24,26 +24,22 @@ const PARALLAX_FACTOR = 0.08;   // lower = more subtle ambient movement
 // ── 1. Scroll Reveal ────────────────────────────────────────
 
 function initReveal() {
-    const observer = new IntersectionObserver(onReveal, {
-        threshold: REVEAL_THRESHOLD,
-        rootMargin: REVEAL_ROOT_MARGIN,
-    });
+    const observer = new IntersectionObserver(
+        (entries, obs) => onReveal(entries, obs), // ✅ pasar observer
+        {
+            threshold: REVEAL_THRESHOLD,
+            rootMargin: REVEAL_ROOT_MARGIN,
+        }
+    );
 
     const selector = '.reveal-up, .reveal-left, .reveal-right, .reveal-scale, .reveal-fade, .reveal-line';
-
-    document.querySelectorAll(selector).forEach(el => {
-        observer.observe(el);
-    });
+    document.querySelectorAll(selector).forEach(el => observer.observe(el));
 }
-
-function onReveal(entries) {
+function onReveal(entries, observer) {
     entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-
         entry.target.classList.add('is-visible');
-
-        // Unobserve so the transition only fires once
-        entry.target._revealObserver?.unobserve(entry.target);
+        observer.unobserve(entry.target);
     });
 }
 
@@ -81,10 +77,10 @@ function initStagger() {
     });
 
     // Cards themselves reveal with a slight scale
-    const observer = new IntersectionObserver(onReveal, {
-        threshold: REVEAL_THRESHOLD,
-        rootMargin: REVEAL_ROOT_MARGIN,
-    });
+    const observer = new IntersectionObserver(
+        (entries, obs) => onReveal(entries, obs),
+        { threshold: REVEAL_THRESHOLD, rootMargin: REVEAL_ROOT_MARGIN }
+    );
 
     cards.forEach(card => {
         if (!card.classList.contains('reveal-scale')) {
@@ -92,6 +88,9 @@ function initStagger() {
         }
         observer.observe(card);
     });
+
+
+
 }
 
 // ── 3. Nav shrink ────────────────────────────────────────────

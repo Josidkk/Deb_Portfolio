@@ -471,25 +471,8 @@ function createBentoCard({ id, title, icon, content }) {
 }
 
 function setupInteractions() {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -150px 0px',
-        threshold: 0.15
-    };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            } else {
-                entry.target.classList.remove('is-visible');
-            }
-        });
-    }, observerOptions);
 
-    document.querySelectorAll('.reveal-up').forEach(card => {
-        observer.observe(card);
-    });
 
     const scrollArrow = document.getElementById('scroll-arrow');
     if (scrollArrow) {
@@ -528,27 +511,5 @@ function setupInteractions() {
     const sections = document.querySelectorAll('section#hero, #exp-card, #about-card, #contact-card');
     const navItems = document.querySelectorAll('.nav-links a');
 
-    const navObserverOptions = {
-        root: null,
-        rootMargin: '-30% 0px -70% 0px',
-        threshold: 0
-    };
 
-    const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                navItems.forEach(link => {
-                    link.classList.remove('is-active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('is-active');
-                    }
-                });
-            }
-        });
-    }, navObserverOptions);
-
-    sections.forEach(section => {
-        navObserver.observe(section);
-    });
 }
