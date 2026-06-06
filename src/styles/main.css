@@ -1,3 +1,165 @@
+/* ═══════════════════════════════════════════
+   BOOT SCREEN
+   Pegar en main.css, reemplazando el bloque
+   "LOADING LAYER (Replaces Terminal)"
+   ═══════════════════════════════════════════ */
+ 
+/* ── Overlay ── */
+.loading-layer {
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg-primary); /* #050507 — igual que el body */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    transition: opacity 0.7s ease;
+}
+ 
+.loading-layer.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+ 
+/* ── Scanlines sutiles ── */
+.loading-layer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 3px,
+        rgba(0, 0, 0, 0.12) 3px, rgba(0, 0, 0, 0.12) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+ 
+/* ── Vignette ── */
+.loading-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 35%,
+        rgba(5, 5, 7, 0.7) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+ 
+/* ── Pink ambient glow ── */
+#boot-ambient {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 121, 198, 0.10) 0%,
+        transparent 70%
+    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 2;
+}
+ 
+#boot-ambient.expand {
+    transform: translate(-50%, -50%) scale(1);
+}
+ 
+/* ── Stage (centra el SVG + "from Deyby") ── */
+#boot-stage {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+ 
+/* ── SVG logo ── */
+#boot-logo {
+    width: 200px;
+    height: 200px;
+    overflow: visible;
+    filter: drop-shadow(0 0 0px rgba(255, 121, 198, 0));
+    transition: filter 1s ease;
+}
+ 
+#boot-logo.lit {
+    filter:
+        drop-shadow(0 0 28px rgba(255, 121, 198, 0.45))
+        drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+}
+ 
+/* ── Paths trazados (> y D) ── */
+.boot-stroke {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 22;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+ 
+/* ── Underscore relleno ── */
+#boot-underscore {
+    fill: #ffffff;
+    opacity: 0;
+}
+ 
+/* ── "from Deyby" — igual al original pero coordinado con el boot ── */
+#boot-from {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+ 
+#boot-from.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+ 
+.boot-from-text {
+    font-family: var(--font-mono);
+    font-size: 0.50rem;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+ 
+.boot-deyby-text {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--color-accent-primary);
+    letter-spacing: 1px;
+}
+ 
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    #boot-logo {
+        width: 140px;
+        height: 140px;
+    }
+ 
+    #boot-ambient {
+        width: 320px;
+        height: 320px;
+    }
+}
+
+
 /* Variables are now imported from tokens.css */
 
 html {
@@ -378,7 +540,7 @@ body.overdrive-mode #bg-canvas {
 }
 
 .nav-logo {
-    height: 42px;
+    height: 52px;
     /* Perfectly aligned with the total height of the stacked text */
     width: auto;
     display: block;
