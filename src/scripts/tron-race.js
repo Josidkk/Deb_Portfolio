@@ -1,4 +1,19 @@
 export class TronRace {
+    getLanes() {
+        const h = this.canvas.height;
+        return [
+            h * 0.25,
+            h * 0.40,
+            h * 0.50,
+            h * 0.60,
+            h * 0.75
+        ];
+    }
+
+    get scale() {
+        return this.canvas.height / 120;
+    }
+
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) {
@@ -8,33 +23,28 @@ export class TronRace {
         this.ctx = this.canvas.getContext('2d');
         this.pixelSize = 4;
         this.cycles = [];
-        this.explosions = []; // Store active explosions
+        this.explosions = [];
 
         this.resize();
         window.addEventListener('resize', () => this.resize());
 
-        // Define lanes (Y positions)
-        // Canvas is roughly 100px high. 
-        // Lanes at: 20, 40, 60, 80
-        this.lanes = [20, 35, 50, 65, 80];
+        this.lanes = this.getLanes();
 
         this.initRace();
         this.animate();
     }
 
     resize() {
+        const container = this.canvas.parentElement;
         this.canvas.width = window.innerWidth;
-        this.canvas.height = 120; // Slightly taller for maneuvering
-    }
 
+        this.canvas.height = Math.max(100, container ? container.clientHeight : 120);
+        this.lanes = this.getLanes();
+    }
     initRace() {
         this.cycles = [];
         this.explosions = [];
-
-        // Orange Bike (Player 1)
-        this.cycles.push(this.createCycle('#ff9900', '#cc7a00', 0, 1.2)); // Slightly slower/faster random
-
-        // Blue Bike (Player 2)
+        this.cycles.push(this.createCycle('#ff9900', '#cc7a00', 0, 1.2));
         this.cycles.push(this.createCycle('#00ffff', '#00cccc', 4, 1.2));
     }
 
@@ -45,29 +55,96 @@ export class TronRace {
             laneIdx: initialLaneIdx,
             color: color,
             trailColor: trailColor,
-            speed: 3 + Math.random() * speedBase,
+            speed: 5 + Math.random() * speedBase,
             targetY: this.lanes[initialLaneIdx],
-            state: 'RUNNING', // RUNNING, CHANGING_LANE, CRASHED, DEAD
-            trail: [], // Store recent trail for collision logic?
-            // Actually trails in footer might get messy if we persist them forever.
-            // Let's persist them for a long time or until off screen.
+            state: 'RUNNING',
+            trail: [],
             dead: false
         };
     }
 
     drawBike(x, y, color) {
-        const p = this.pixelSize;
-        this.ctx.fillStyle = color;
+        const ctx = this.ctx;
+        const glowColor = color;
 
-        const shape = [
-            { dx: 2, dy: 0 }, { dx: 3, dy: 0 }, { dx: 4, dy: 0 }, { dx: 5, dy: 0 },
-            { dx: 1, dy: 1 }, { dx: 2, dy: 1 }, { dx: 3, dy: 1 }, { dx: 4, dy: 1 }, { dx: 5, dy: 1 }, { dx: 6, dy: 1 },
-            { dx: 0, dy: 2 }, { dx: 1, dy: 2 }, { dx: 6, dy: 2 }, { dx: 7, dy: 2 }
-        ];
+        // Moto siempre a tamaño fijo (diseñada para 120px de alto).
+        // Solo centramos verticalmente en el canvas real usando y directamente.
+        ctx.save();
+        ctx.translate(x + 16, y); // y ya viene de las lanes escaladas
+        ctx.scale(0.7, 0.7);
 
-        shape.forEach(pt => {
-            this.ctx.fillRect(x + pt.dx * p, y + pt.dy * p, p, p);
-        });
+        // --- Ambient halo ---
+        const halo = ctx.createRadialGradient(0, 0, 2, 0, 0, 20);
+        halo.addColorStop(0, glowColor + '44');
+        halo.addColorStop(1, 'transparent');
+        ctx.fillStyle = halo;
+        ctx.fillRect(-20, -20, 40, 40);
+
+        // --- Ground shadow ---
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.beginPath();
+        ctx.ellipse(2, 9, 13, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // --- Main hull ---
+        const bodyGrad = ctx.createLinearGradient(-16, 0, 16, 0);
+        bodyGrad.addColorStop(0, glowColor + 'aa');
+        bodyGrad.addColorStop(0.5, glowColor);
+        bodyGrad.addColorStop(1, glowColor + 'aa');
+        ctx.fillStyle = bodyGrad;
+        ctx.beginPath();
+        ctx.moveTo(16, -2);
+        ctx.lineTo(8, -6);
+        ctx.lineTo(-13, -4);
+        ctx.lineTo(-13, 4);
+        ctx.lineTo(8, 6);
+        ctx.lineTo(16, 2);
+        ctx.closePath();
+        ctx.fill();
+
+        // --- Cockpit canopy ---
+        const cockGrad = ctx.createLinearGradient(0, -7, 0, 0);
+        cockGrad.addColorStop(0, 'rgba(255,255,255,0.25)');
+        cockGrad.addColorStop(1, glowColor + '66');
+        ctx.fillStyle = cockGrad;
+        ctx.beginPath();
+        ctx.moveTo(10, -2);
+        ctx.lineTo(4, -6);
+        ctx.lineTo(-4, -5);
+        ctx.lineTo(-6, 0);
+        ctx.lineTo(10, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        // --- Engine spine ---
+        ctx.shadowColor = glowColor;
+        ctx.shadowBlur = 8;
+        ctx.strokeStyle = glowColor;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(-13, 0);
+        ctx.lineTo(13, 0);
+        ctx.stroke();
+
+        // --- Wheels ---
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.ellipse(11, 4, 4, 3, 0.25, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(-11, 4, 4, 3, 0.25, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // --- Headlight ---
+        ctx.shadowBlur = 14;
+        ctx.fillStyle = glowColor;
+        ctx.beginPath();
+        ctx.ellipse(14, 0, 2, 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+        ctx.restore();
     }
 
     createExplosion(x, y, color) {
@@ -84,32 +161,21 @@ export class TronRace {
     }
 
     animate() {
-        // Fade effect for trails? No, classic tron has solid trails.
-        // But since this is a side scroller, the canvas moves?
-        // Let's clear the canvas.
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        // Draw Grid
         this.drawGrid();
-
-        // Update Explosoions
         this.updateExplosions();
 
         const activeCycles = this.cycles.filter(c => !c.dead);
 
-        // If one is dead and offscreen, maybe restart race soon?
         if (activeCycles.length === 0 || (activeCycles.every(c => c.x > this.canvas.width + 100))) {
-            this.initRace(); // Restart when loop creates emptiness
+            this.initRace();
         }
 
         this.cycles.forEach((cycle, idx) => {
             if (cycle.dead) return;
 
-            // AI LOGIC
-            // 1. Check if ahead or behind
             const otherCycle = this.cycles.find((c, i) => i !== idx && !c.dead);
 
-            // If Changing Lane, move Y
             if (cycle.state === 'CHANGING_LANE') {
                 if (Math.abs(cycle.y - cycle.targetY) < 2) {
                     cycle.y = cycle.targetY;
@@ -118,43 +184,31 @@ export class TronRace {
                     cycle.y += (cycle.targetY > cycle.y) ? 2 : -2;
                 }
             } else {
-                // DECISION MAKING
-                // Chance to change lane
-                if (Math.random() < 0.02) {
-                    // Aggressive: If ahead, try to match other cycle's lane to block
-                    // Defensive: If behind and in same lane, move away!
-
+                if (Math.random() < 0.08) {
                     let targetLane = cycle.laneIdx;
 
                     if (otherCycle) {
-                        const isAhead = cycle.x > otherCycle.x + 50; // Clearly ahead
+                        const isAhead = cycle.x > otherCycle.x + 50;
                         const sameLane = cycle.laneIdx === otherCycle.laneIdx;
 
                         if (isAhead) {
-                            // Try to block!
                             if (!sameLane && Math.random() < 0.5) {
-                                // Move towards opponent
                                 if (otherCycle.laneIdx > cycle.laneIdx) targetLane++;
                                 else targetLane--;
                             }
                         } else if (Math.abs(cycle.x - otherCycle.x) < 100 && sameLane) {
-                            // Behind and Close! DODGE!
                             const up = cycle.laneIdx > 0;
                             const down = cycle.laneIdx < this.lanes.length - 1;
-
                             if (up && down) targetLane += (Math.random() > 0.5 ? 1 : -1);
                             else if (up) targetLane--;
                             else if (down) targetLane++;
                         } else {
-                            // Random wandering
                             if (Math.random() < 0.3) {
-                                const dir = Math.random() > 0.5 ? 1 : -1;
-                                targetLane += dir;
+                                targetLane += (Math.random() > 0.5 ? 1 : -1);
                             }
                         }
                     }
 
-                    // Boundary Check
                     if (targetLane < 0) targetLane = 0;
                     if (targetLane >= this.lanes.length) targetLane = this.lanes.length - 1;
 
@@ -166,58 +220,37 @@ export class TronRace {
                 }
             }
 
-            // Move X
             cycle.x += cycle.speed;
 
-            // DRAW TRAIL
-            // In a side scroller, the trail is the history.
-            // Since we clear canvas, we must redraw trail from points or just a long rect?
-            // "Se quieren destruir con su luz" -> The trail is the weapon.
-            // Draw a long trail behind the bike.
-            this.ctx.fillStyle = cycle.trailColor;
+            if (cycle.trail.length === 0) cycle.trail.push({ x: cycle.x, y: cycle.y });
 
-            // Trail logic: A solid box from X=0 to BikeX?
-            // If they change lanes, the trail should follow?
-            // Complex trails require storing points.
-            if (cycle.trail.length === 0) cycle.trail.push({ x: -100, y: cycle.y });
-
-            // Add current point if y changed or interval
             const lastPt = cycle.trail[cycle.trail.length - 1];
             if (Math.abs(lastPt.y - cycle.y) > 0 || cycle.x - lastPt.x > 50) {
                 cycle.trail.push({ x: cycle.x, y: cycle.y });
             }
 
-            // Draw Trail segments
+            // Trail proporcional al canvas
+            const trailWidth = Math.max(1, this.pixelSize * this.scale);
             this.ctx.beginPath();
-            this.ctx.moveTo(cycle.trail[0].x, cycle.trail[0].y + 4); // Offset to middle of bike
+            this.ctx.moveTo(cycle.trail[0].x, cycle.trail[0].y);
             for (let pt of cycle.trail) {
-                this.ctx.lineTo(pt.x, pt.y + 4);
+                this.ctx.lineTo(pt.x, pt.y);
             }
-            this.ctx.lineTo(cycle.x, cycle.y + 4);
-
+            this.ctx.lineTo(cycle.x + 3, cycle.y);
             this.ctx.strokeStyle = cycle.trailColor;
-            this.ctx.lineWidth = this.pixelSize; // Trail height
+            this.ctx.lineWidth = trailWidth;
             this.ctx.stroke();
 
-            // Draw Bike
             this.drawBike(cycle.x, cycle.y, cycle.color);
 
-            // COLLISION?
-            // Since it's a side scroller, collision with "trail" usually means hitting someone who cut in front.
-            // Check if I overlap with opponent's TRAIL.
             if (otherCycle) {
-                // Approximate collision: if our head (cycle.x + width) is inside other's trail Y?
-                // And we are behind?
                 if (cycle.x < otherCycle.x && cycle.x > otherCycle.x - 200 && Math.abs(cycle.y - otherCycle.y) < 10) {
-                    // CRASH!
                     this.createExplosion(cycle.x + 20, cycle.y, cycle.color);
                     cycle.dead = true;
-                    // Opponent speeds up in victory
                     otherCycle.speed += 2;
                 }
             }
 
-            // Loop reset
             if (cycle.x > this.canvas.width + 200) {
                 cycle.dead = true;
             }
@@ -230,10 +263,9 @@ export class TronRace {
         this.ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)';
         this.ctx.lineWidth = 1;
         this.ctx.beginPath();
-        // Horizontal Lanes
         this.lanes.forEach(y => {
-            this.ctx.moveTo(0, y + 10); // Offset to be under wheels
-            this.ctx.lineTo(this.canvas.width, y + 10);
+            this.ctx.moveTo(0, y);
+            this.ctx.lineTo(this.canvas.width, y);
         });
         this.ctx.stroke();
     }
@@ -248,7 +280,7 @@ export class TronRace {
                 return;
             }
             this.ctx.fillStyle = p.color;
-            this.ctx.fillRect(p.x, p.y, 4, 4);
+            this.ctx.fillRect(p.x, p.y, 4 * this.scale, 4 * this.scale);
         });
     }
 }

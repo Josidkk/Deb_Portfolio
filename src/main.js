@@ -114,7 +114,7 @@ function renderContent() {
 
             <div class="about-top">
 
-                <div class="avatar-ring">
+               
                     <div class="avatar-ring">
                         <img
                             src="./assets/Foto_Formal_DeybyDeras.jpeg"
@@ -149,7 +149,7 @@ function renderContent() {
                                     fill="rgba(255,255,255,0.3)"/>
                         </svg>
                     </div>
-                </div>
+                
 
                 <div class="about-content">
                     <span class="about-label">• SOBRE MÍ</span>
@@ -452,7 +452,7 @@ function renderContent() {
 function createBentoCard({ id, title, icon, content }) {
     const card = document.createElement('div');
     card.id = id;
-    card.className = 'bento-card reveal-up';
+    card.className = 'bento-card reveal-scale';
 
     const iconHtml = icon ? `<i class="${icon}"></i>` : '';
     const titleHtml = title ? `
@@ -522,5 +522,33 @@ function setupInteractions() {
                 }
             }
         });
+    });
+
+    // Navigation Active State Observer
+    const sections = document.querySelectorAll('section#hero, #exp-card, #about-card, #contact-card');
+    const navItems = document.querySelectorAll('.nav-links a');
+
+    const navObserverOptions = {
+        root: null,
+        rootMargin: '-30% 0px -70% 0px',
+        threshold: 0
+    };
+
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navItems.forEach(link => {
+                    link.classList.remove('is-active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('is-active');
+                    }
+                });
+            }
+        });
+    }, navObserverOptions);
+
+    sections.forEach(section => {
+        navObserver.observe(section);
     });
 }

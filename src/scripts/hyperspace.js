@@ -36,9 +36,13 @@ export class HyperspaceSystem {
         this.video.setAttribute('webkit-playsinline', '');
 
         // Insertarlo en el DOM pero de forma invisible para que Safari no detenga la decodificación
-        this.video.style.position = 'absolute';
+        this.video.style.position = 'fixed'; // ← cambiar absolute por fixed
         this.video.style.opacity = '0';
         this.video.style.pointerEvents = 'none';
+        this.video.style.width = '1px';  // ← agregar
+        this.video.style.height = '1px'; // ← agregar
+        this.video.style.top = '0';      // ← agregar
+        this.video.style.left = '0';     // ← agregar
         document.body.appendChild(this.video);
 
         this.videoReady = false;

@@ -54,7 +54,7 @@ function initStagger() {
     const STAGGER_GROUPS = [
         '.bento-card .timeline-item',
         '.bento-card .contact-item',
-        '.bento-card .skill-item',
+
     ];
 
     // Collect all cards that contain staggerable children

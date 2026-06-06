@@ -9,10 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/png" href="/public/assets/Logo_D.svg">
 
+    <link rel="stylesheet" href="/src/styles/tokens.css">
     <link rel="stylesheet" href="/src/styles/main.css">
     <link rel="stylesheet" href="/src/styles/animations.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -53,10 +54,10 @@
         </button>
 
         <ul class="nav-links" id="nav-links">
-            <li><a href="#hero" data-text="HOME" class="is-active">Inicio</a></li>
-            <li><a href="#about-card" data-text="ABOUT">Sobre</a></li>
-            <li><a href="#exp-card" data-text="PROJECTS">Proyectos</a></li>
-            <li><a href="#contact-card" data-text="CONTACT">Contacto</a></li>
+            <li><a href="#hero" data-text="HOME" class="is-active"><i class="fas fa-house"></i> Inicio</a></li>
+            <li><a href="#about-card" data-text="ABOUT"><i class="fas fa-user"></i> Sobre</a></li>
+            <li><a href="#exp-card" data-text="PROJECTS"><i class="fas fa-code"></i> Proyectos</a></li>
+            <li><a href="#contact-card" data-text="CONTACT"><i class="fas fa-envelope"></i> Contacto</a></li>
         </ul>
     </nav>
     <div id="app" class="hidden">
@@ -75,8 +76,8 @@
                         arquitecturas modernas.- San Pedro Sula, Honduras.</p>
 
                     <div class="hero-buttons desktop-only">
-                        <a href="/public/assets/Deyby_Cardenas_CV.pdf" download="Deyby_Cardenas_CV.pdf"
-                            class="download-btn">
+                        <a href="/assets/Deyby_Cardenas_CV.pdf" download="Deyby_Cardenas_CV.pdf" target="_blank"
+                            rel="noopener noreferrer" class="download-btn">
                             <i class="fas fa-file-download"></i>
                             <span>Descargar CV</span>
                         </a>
@@ -94,8 +95,7 @@
 
                 <!-- MOBILE BUTTONS (Below Batman) -->
                 <div class="hero-buttons mobile-only">
-                    <a href="/public/assets/Deyby_Cardenas_CV.pdf" download="Deyby_Cardenas_CV.pdf"
-                        class="download-btn">
+                    <a href="/assets/Deyby_Cardenas_CV.pdf" download="Deyby_Cardenas_CV.pdf" class="download-btn">
                         <i class="fas fa-file-download"></i>
                         <span>Descargar CV</span>
                     </a>

@@ -1,0 +1,135 @@
+/* 
+  Aesthetic Philosophy: Gotham Noir / Hacker Monochromatic
+  Description: A high-contrast, deep-space dark mode that matches the halftone Batman aesthetic. 
+  Uses pure blacks, stark whites, and a vibrant accent color for interaction.
+*/
+
+:root {
+   /* =========================================
+     COLOR PALETTE
+     ========================================= */
+
+   /* Backgrounds */
+   --color-bg-primary: #050507;
+   /* Deepest black for the void */
+   --color-bg-secondary: #0d0d12;
+   /* Slightly elevated elements */
+   --color-bg-tertiary: #16161d;
+   /* Inputs, cards, panels */
+   --color-bg-inverse: #ffffff;
+
+   /* Text */
+   --color-text-primary: #ffffff;
+   /* High contrast white for headings */
+   --color-text-secondary: #a1a1aa;
+   /* Subdued text for descriptions */
+   --color-text-tertiary: #71717a;
+   /* Disabled or placeholder text */
+   --color-text-inverse: #050507;
+
+   /* Accents (The single pop of color in the monochrome world) */
+   --color-accent-primary: #ff79c6;
+   /* Electric Pink (matching your current "Inicio" link) */
+   --color-accent-primary-hover: #ff92d0;
+   --color-accent-secondary: #8be9fd;
+   /* Cyan for secondary highlights */
+
+   /* Borders & Surfaces */
+   --color-border-primary: rgba(255, 255, 255, 0.1);
+   --color-border-secondary: rgba(255, 255, 255, 0.05);
+   --color-border-focus: rgba(255, 121, 198, 0.5);
+
+   --color-surface-overlay: rgba(5, 5, 7, 0.85);
+
+   /* =========================================
+     SPACING SCALE (4px Base - Brutalist/Tight)
+     ========================================= */
+   --space-0: 0;
+   --space-1: 4px;
+   --space-2: 8px;
+   --space-3: 12px;
+   --space-4: 16px;
+   --space-5: 24px;
+   --space-6: 32px;
+   --space-7: 48px;
+   --space-8: 64px;
+   --space-9: 96px;
+   --space-10: 128px;
+
+   /* =========================================
+     TYPOGRAPHY
+     ========================================= */
+   --font-family-display: 'Inter', sans-serif;
+   --font-family-body: 'Inter', sans-serif;
+   --font-family-mono: 'JetBrains Mono', monospace;
+
+   --font-size-xs: 0.75rem;
+   --font-size-sm: 0.875rem;
+   --font-size-base: 1rem;
+   --font-size-md: 1.125rem;
+   --font-size-lg: 1.25rem;
+   --font-size-xl: 1.5rem;
+   --font-size-2xl: 2rem;
+   --font-size-3xl: 3rem;
+   --font-size-4xl: 4rem;
+   --font-size-hero: 6.5rem;
+
+   --font-weight-normal: 400;
+   --font-weight-medium: 500;
+   --font-weight-semibold: 600;
+   --font-weight-bold: 700;
+   --font-weight-black: 900;
+
+   --line-height-tight: 1.1;
+   --line-height-normal: 1.5;
+   --line-height-relaxed: 1.7;
+
+   --letter-spacing-tight: -0.04em;
+   --letter-spacing-normal: 0;
+   --letter-spacing-wide: 0.1em;
+   --letter-spacing-widest: 0.25em;
+
+   /* =========================================
+     LAYOUT & BORDERS
+     ========================================= */
+   --border-radius-sm: 4px;
+   --border-radius-md: 8px;
+   --border-radius-lg: 16px;
+   --border-radius-xl: 2.5rem;
+   --border-radius-full: 9999px;
+
+   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+   --shadow-glow: 0 1px 2px rgba(0, 0, 0, 0.5);
+
+   /* =========================================
+     MOTION
+     ========================================= */
+   --duration-fast: 150ms;
+   --duration-normal: 300ms;
+   --duration-slow: 500ms;
+
+   --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+   --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+   /* =========================================
+     MAPPING TO EXISTING VARIABLES
+     ========================================= */
+   --bg-color: var(--color-bg-primary);
+   --text-color: var(--color-text-primary);
+   --primary-color: var(--color-text-primary);
+   /* Changed to white for stark contrast instead of purple */
+   --secondary-color: var(--color-accent-primary);
+   --accent-color: var(--color-accent-secondary);
+   --glass-bg: rgba(5, 5, 7, 0.6);
+   --glass-border: var(--color-border-primary);
+   --font-mono: var(--font-family-mono);
+   --font-sans: var(--font-family-body);
+   --grid-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Optional Light Theme fallback for preference, though the portfolio is inherently dark-mode-first */
+@media (prefers-color-scheme: light) {
+   /* We maintain the dark aesthetic as default unless explicitly needed */
+}
