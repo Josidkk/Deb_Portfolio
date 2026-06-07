@@ -11,33 +11,56 @@
 
    /* Backgrounds */
    --color-bg-primary: #050507;
-   /* Deepest black for the void */
    --color-bg-secondary: #0d0d12;
-   /* Slightly elevated elements */
    --color-bg-tertiary: #16161d;
-   /* Inputs, cards, panels */
    --color-bg-inverse: #ffffff;
 
    /* Text */
    --color-text-primary: #ffffff;
-   /* High contrast white for headings */
    --color-text-secondary: #a1a1aa;
-   /* Subdued text for descriptions */
    --color-text-tertiary: #71717a;
-   /* Disabled or placeholder text */
    --color-text-inverse: #050507;
+   --color-text-muted: #8b949e;
+   --color-text-subtle: #6e7681;
+   --color-text-body: #c9d1d9;
 
-   /* Accents (The single pop of color in the monochrome world) */
+   /* Accents */
    --color-accent-primary: #ff79c6;
-   /* Electric Pink (matching your current "Inicio" link) */
    --color-accent-primary-hover: #ff92d0;
    --color-accent-secondary: #8be9fd;
-   /* Cyan for secondary highlights */
+   --color-cyan: #00ffff;
+
+   /* Status Colors */
+   --color-status-online: #50fa7b;
+   --color-status-available: #4ade80;
+
+   /* Brand Colors */
+   --color-brand-gmail: #EA4335;
+   --color-brand-whatsapp: #25D366;
+   --color-brand-linkedin: #0A66C2;
+   --color-brand-github: #8B5CF6;
+
+   /* Surface Colors */
+   --color-surface-elevated: rgba(30, 30, 40, 0.5);
+   --color-surface-modal: rgba(30, 30, 45, 0.7);
+   --color-surface-dark: rgba(13, 17, 23, 0.97);
+
+   /* Glow Colors */
+   --color-glow-pink: rgba(255, 121, 198, 0.25);
+   --color-glow-pink-hot: rgba(236, 72, 153, 0.6);
+   --color-glow-cyan: rgba(139, 233, 253, 0.03);
+   --color-glow-purple: rgba(189, 147, 249, 0.06);
 
    /* Borders & Surfaces */
    --color-border-primary: rgba(255, 255, 255, 0.1);
    --color-border-secondary: rgba(255, 255, 255, 0.05);
    --color-border-focus: rgba(255, 121, 198, 0.5);
+   --color-border-timeline: #30363d;
+   --color-border-subtle: rgba(255, 255, 255, 0.05);
+   --color-border-light: rgba(255, 255, 255, 0.08);
+   --color-border-medium: rgba(255, 255, 255, 0.1);
+   --color-border-strong: rgba(255, 255, 255, 0.25);
+   --color-border-brand-pink: rgba(255, 121, 198, 0.45);
 
    --color-surface-overlay: rgba(5, 5, 7, 0.85);
 
@@ -119,17 +142,11 @@
    --bg-color: var(--color-bg-primary);
    --text-color: var(--color-text-primary);
    --primary-color: var(--color-text-primary);
-   /* Changed to white for stark contrast instead of purple */
    --secondary-color: var(--color-accent-primary);
    --accent-color: var(--color-accent-secondary);
    --glass-bg: rgba(5, 5, 7, 0.6);
    --glass-border: var(--color-border-primary);
    --font-mono: var(--font-family-mono);
    --font-sans: var(--font-family-body);
-   --grid-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Optional Light Theme fallback for preference, though the portfolio is inherently dark-mode-first */
-@media (prefers-color-scheme: light) {
-   /* We maintain the dark aesthetic as default unless explicitly needed */
+   --grid-color: var(--color-border-subtle);
 }

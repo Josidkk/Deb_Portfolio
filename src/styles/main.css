@@ -256,7 +256,7 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: var(--color-bg-primary);
     /* Pure black for space */
     z-index: 9999;
     display: flex;
@@ -280,7 +280,7 @@ body::after {
 .from-text {
     font-family: var(--font-sans);
     font-size: 0.50rem;
-    color: #8b949e;
+    color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -373,8 +373,7 @@ body::after {
 /* CYBER OVERDRIVE MODE 2.0 */
 body.overdrive-mode {
     --primary-color: #ffffff;
-    --secondary-color: #00ffff;
-    background: #000;
+    --secondary-color: #00ffff;        background: var(--color-bg-primary);
 }
 
 /* Hyperdrive Scanline */
@@ -765,7 +764,7 @@ body.overdrive-mode #bg-canvas {
 
 .hero-description {
     font-size: 0.95rem;
-    color: #6e7681;
+    color: var(--color-text-subtle);
     font-family: var(--font-sans);
     font-weight: 400;
     line-height: 1.7;
@@ -794,7 +793,7 @@ body.overdrive-mode #bg-canvas {
     background: var(--color-accent-primary);
     border: 1px solid var(--color-accent-primary);
     border-radius: 6px;
-    color: #050507;
+    color: var(--color-text-inverse);
     font-family: var(--font-sans);
     font-size: 0.8rem;
     font-weight: 700;
@@ -884,7 +883,7 @@ body.overdrive-mode #bg-canvas {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 50px;
-    color: #8b949e;
+    color: var(--color-text-muted);
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 700;
@@ -960,7 +959,7 @@ body.overdrive-mode #bg-canvas {
         "about"
         "edu"
         "exp"
-
+        "projects"
         "contact";
     z-index: 10;
     position: relative;
@@ -974,8 +973,8 @@ body.overdrive-mode #bg-canvas {
         grid-template-areas:
             "about about"
             "edu exp"
+            "projects projects"
             "contact contact"
-            /* Full width bottom */
     }
 }
 
@@ -1016,6 +1015,10 @@ body.overdrive-mode #bg-canvas {
 
 #contact-card {
     grid-area: contact;
+}
+
+#projects-card {
+    grid-area: projects;
 }
 
 /* MARQUEE STYLES */
@@ -1186,7 +1189,7 @@ body.overdrive-mode #bg-canvas {
     height: 35px;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(30, 30, 40, 0.5);
+    background: var(--color-surface-elevated);
     color: var(--text-color);
     display: flex;
     align-items: center;
@@ -1223,28 +1226,28 @@ body.overdrive-mode #bg-canvas {
 .contact-item:has(.fa-envelope):hover .icon-box {
     background: rgba(234, 67, 53, 0.15);
     border-color: rgba(234, 67, 53, 0.5);
-    color: #EA4335;
+    color: var(--color-brand-gmail);
 }
 
 /* WhatsApp — verde */
 .contact-item:has(.fa-whatsapp):hover .icon-box {
     background: rgba(37, 211, 102, 0.15);
     border-color: rgba(37, 211, 102, 0.5);
-    color: #25D366;
+    color: var(--color-brand-whatsapp);
 }
 
 /* LinkedIn — azul */
 .contact-item:has(.fa-linkedin-in):hover .icon-box {
     background: rgba(10, 102, 194, 0.15);
     border-color: rgba(10, 102, 194, 0.5);
-    color: #0A66C2;
+    color: var(--color-brand-linkedin);
 }
 
 /* GitHub — morado */
 .contact-item:has(.fa-github):hover .icon-box {
     background: rgba(139, 92, 246, 0.15);
     border-color: rgba(139, 92, 246, 0.5);
-    color: #8B5CF6;
+    color: var(--color-brand-github);
 }
 
 .icon-box {
@@ -1292,10 +1295,10 @@ body.overdrive-mode #bg-canvas {
 .pulse-dot {
     width: 8px;
     height: 8px;
-    background: #50fa7b;
+    background: var(--color-status-online);
     /* Green for online */
     border-radius: 50%;
-    box-shadow: 0 0 8px #50fa7b;
+    box-shadow: 0 0 8px var(--color-status-online);
     animation: pulse 2s infinite;
 }
 
@@ -1360,7 +1363,7 @@ body.overdrive-mode #bg-canvas {
     position: relative;
     padding-left: 2rem;
     margin-bottom: 2rem;
-    border-left: 2px solid #30363d;
+    border-left: 2px solid var(--color-border-timeline);
 }
 
 .timeline-item::before {
@@ -1390,7 +1393,7 @@ body.overdrive-mode #bg-canvas {
 
 .timeline-date {
     font-size: 0.8rem;
-    color: #8b949e;
+    color: var(--color-text-muted);
     font-family: var(--font-mono);
     margin-bottom: 0.8rem;
     display: block;
@@ -1566,7 +1569,7 @@ section {
         left: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(13, 17, 23, 0.97);
+        background: var(--color-surface-dark);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
@@ -1818,7 +1821,7 @@ section {
     position: relative;
     width: 90%;
     max-width: 500px;
-    background: rgba(30, 30, 45, 0.7);
+    background: var(--color-surface-modal);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     backdrop-filter: blur(15px);
@@ -1892,7 +1895,7 @@ section {
 }
 
 .modal-body p {
-    color: #c9d1d9;
+    color: var(--color-text-body);
     line-height: 1.8;
     font-size: 1.1rem;
     margin: 0;
@@ -2128,7 +2131,7 @@ section {
 .about-description {
     max-width: 100%;
     /* Allows it to reach the right */
-    color: #c9d1d9;
+    color: var(--color-text-body);
     font-size: 1.05rem;
     /* Increased text size */
     line-height: 1.85;
@@ -2165,7 +2168,7 @@ section {
 .soft-skill-card:hover {
     transform: translateY(-4px);
 
-    border-color: rgba(255, 121, 198, .45);
+    border-color: var(--color-border-brand-pink);
 
     box-shadow:
         0 0 25px rgba(255, 121, 198, .08);
@@ -2197,7 +2200,7 @@ section {
 
 .about-footer p {
     max-width: 680px;
-    color: #c9d1d9;
+    color: var(--color-text-body);
     line-height: 1.85;
     margin: 0;
     font-size: 0.95rem;
@@ -2223,11 +2226,11 @@ section {
 }
 
 .location {
-    color: #c9d1d9;
+    color: var(--color-text-body);
 }
 
 .availability {
-    color: #4ade80;
+    color: var(--color-status-available);
 }
 
 /* ========================================
@@ -2299,6 +2302,181 @@ section {
     .hero-description {
         border-left: none !important;
         padding-left: 0 !important;
+    }
+}
+
+/* ── PROJECTS SECTION ─────────────────────────────────────── */
+
+.projects-grid {
+    display: grid;
+    /* auto-fit collapses empty tracks so few projects fill the space */
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 1.5rem;
+}
+
+/* 1 project → horizontal layout (image left, info right) */
+.projects-grid:has(.project-card:only-child) {
+    grid-template-columns: 1fr;
+}
+
+.projects-grid:has(.project-card:only-child) .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "image info";
+    align-items: stretch;
+}
+
+.projects-grid:has(.project-card:only-child) .project-image-wrapper {
+    grid-area: image;
+    aspect-ratio: auto;
+    min-height: 280px;
+}
+
+.projects-grid:has(.project-card:only-child) .project-info {
+    grid-area: info;
+    padding: 2rem 2.5rem;
+    justify-content: center;
+}
+
+.projects-grid:has(.project-card:only-child) .project-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* 2 projects → cards stretch to fill full width */
+.projects-grid:has(.project-card:nth-child(2)):not(:has(.project-card:nth-child(3))) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.project-card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.project-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.05);
+}
+
+.project-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 5, 7, 0.8) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.project-info {
+    padding: 1.2rem 1.4rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.project-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.project-description {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+.project-tech-tag {
+    padding: 0.25rem 0.65rem;
+    background: rgba(255, 121, 198, 0.1);
+    border: 1px solid rgba(255, 121, 198, 0.25);
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-accent-primary);
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+}
+
+.project-links {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.2s ease;
+}
+
+.project-link:hover {
+    color: var(--text-color);
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.project-link i {
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Override horizontal single-project layout on mobile */
+    .projects-grid:has(.project-card:only-child) .project-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .projects-grid:has(.project-card:only-child) .project-image-wrapper {
+        min-height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    /* Override 2-column layout on mobile */
+    .projects-grid:has(.project-card:nth-child(2)):not(:has(.project-card:nth-child(3))) {
+        grid-template-columns: 1fr;
     }
 }
 

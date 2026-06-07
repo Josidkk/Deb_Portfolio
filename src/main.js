@@ -157,25 +157,19 @@ function renderContent() {
                 
 
                 <div class="about-content">
-                    <span class="about-label">• SOBRE MÍ</span>
+                    <span class="about-label">${cvData.about.label}</span>
 
                     <h2 class="about-heading">
-                        Construyendo
-                        soluciones<span> web</span></br> y
-                        <span>móviles</span>
+                        ${cvData.about.heading.line1}
+                        ${cvData.about.heading.accent1}<span> ${cvData.about.heading.mid}</span></br> ${cvData.about.heading.line2}
+                        <span>${cvData.about.heading.accent2}</span>
                     </h2>
 
                     <p class="about-description">
-                        Me apasiona desarrollar software que resuelve problemas reales
-                        y genera impacto. Enfocado en crear aplicaciones escalables,
-                        seguras y mantenibles, utilizando tecnologías modernas y
-                        buenas prácticas de desarrollo. </p>
+                        ${cvData.about.descriptions[0]}</p>
                      
                    <p class="about-description">
-                        Tengo experiencia colaborando en equipos multidisciplinarios,
-                    participando en el diseño, desarrollo y mejora continua de
-                    soluciones digitales enfocadas en rendimiento y experiencia
-                    de usuario.
+                        ${cvData.about.descriptions[1]}
                     </p>
 
                 </div>
@@ -200,10 +194,10 @@ function renderContent() {
                 </p>
                 <div class="about-status">
                     <span class="location">
-                         ● Honduras
+                         ${cvData.about.status.location}
                     </span>
                     <span class="availability">
-                        ● Disponible para proyectos 
+                        ${cvData.about.status.availability} 
                     </span>
                 </div>
             </div>
@@ -221,15 +215,7 @@ function renderContent() {
     const getSkillCategory = (skillName) => {
         for (const [cat, list] of Object.entries(cvData.skills)) {
             if (list.includes(skillName)) {
-                const names = {
-                    web: 'Desarrollo Web',
-                    database: 'Bases de Datos',
-                    mobile: 'Desarrollo Móvil',
-                    desktop: 'Desktop',
-                    methodologies: 'Metodología',
-                    tools: 'Herramientas'
-                };
-                return names[cat] || cat;
+                return cvData.skillCategoryNames[cat] || cat;
             }
         }
         return 'Tecnología';
@@ -385,7 +371,7 @@ function renderContent() {
                     <span class="value">${cvData.contact.phone}</span>
                 </div>
                 <div class="contact-actions">
-                    <a href="https://wa.me/${cvData.contact.phone.replace(/[^0-9]/g, '')}" target="_blank" class="action-btn" title="Chat on WhatsApp">
+                    <a href="${cvData.contactLinks.whatsapp}" target="_blank" class="action-btn" title="Chat on WhatsApp">
                         <i class="fas fa-external-link-alt"></i>
                     </a>
                     <button class="action-btn copy-btn" data-copy="${cvData.contact.phone}" data-label="Número" title="Copy Phone">
@@ -400,13 +386,13 @@ function renderContent() {
                 </div>
                 <div class="contact-info">
                     <span class="label">LinkedIn</span>
-                    <span class="value">Deyby Josue</span>
+                    <span class="value">${cvData.contactLinks.linkedinName}</span>
                 </div>
                 <div class="contact-actions">
-                    <a href="https://www.linkedin.com/in/deyby-josue-deras-cardenas-2534a2390/" target="_blank" class="action-btn" title="Open Profile">
+                    <a href="${cvData.contactLinks.linkedin}" target="_blank" class="action-btn" title="Open Profile">
                         <i class="fas fa-external-link-alt"></i>
                     </a>
-                    <button class="action-btn copy-btn" data-copy="https://www.linkedin.com/in/deyby-josue-deras-cardenas-2534a2390/" data-label="Perfil de LinkedIn" title="Copy URL">
+                    <button class="action-btn copy-btn" data-copy="${cvData.contactLinks.linkedin}" data-label="Perfil de LinkedIn" title="Copy URL">
                         <i class="far fa-copy"></i>
                     </button>
                 </div>
@@ -418,13 +404,13 @@ function renderContent() {
                 </div>
                 <div class="contact-info">
                     <span class="label">GitHub</span>
-                    <span class="value">Josidkk</span>
+                    <span class="value">${cvData.contactLinks.githubName}</span>
                 </div>
                 <div class="contact-actions">
-                    <a href="https://github.com/Josidkk" target="_blank" class="action-btn" title="Open Profile">
+                    <a href="${cvData.contactLinks.github}" target="_blank" class="action-btn" title="Open Profile">
                         <i class="fas fa-external-link-alt"></i>
                     </a>
-                    <button class="action-btn copy-btn" data-copy="https://github.com/Josidkk" data-label="Perfil de GitHub" title="Copy URL">
+                    <button class="action-btn copy-btn" data-copy="${cvData.contactLinks.github}" data-label="Perfil de GitHub" title="Copy URL">
                         <i class="far fa-copy"></i>
                     </button>
                 </div>
@@ -447,10 +433,48 @@ function renderContent() {
         content: contactHtml
     });
 
-    // ─── APPEND AL DOM (sin skillsCard separado) ───────────────────────────
+    // ─── APPEND AL DOM ─────────────────────────────────────────────────
     contentDisplay.appendChild(aboutCard);
     contentDisplay.appendChild(eduCard);
     contentDisplay.appendChild(expCard);
+
+    // ─── 5. PROJECTS CARD (solo si hay proyectos) ───────────────────────
+    if (cvData.projects && cvData.projects.length > 0) {
+        const projectsHtml = cvData.projects.map(project => `
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img
+                        src="${project.image}"
+                        alt="${project.title}"
+                        class="project-image"
+                        loading="lazy"
+                    >
+                    <div class="project-image-overlay"></div>
+                </div>
+                <div class="project-info">
+                    <h4 class="project-title">${project.title}</h4>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-tech">
+                        ${project.technologies.map(tech => `<span class="project-tech-tag">${tech}</span>`).join('')}
+                    </div>
+                    <div class="project-links">
+                        ${project.link ? `<a href="${project.link}" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>` : ''}
+                        ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Código</a>` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        const projectsCard = createBentoCard({
+            id: 'projects-card',
+            title: 'Proyectos',
+            icon: '',
+            content: `<div class="projects-grid">${projectsHtml}</div>`
+        });
+
+        contentDisplay.appendChild(projectsCard);
+    }
+
     contentDisplay.appendChild(contactCard);
 }
 

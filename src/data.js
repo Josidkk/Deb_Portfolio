@@ -73,5 +73,77 @@ export const cvData = {
     languages: [
         { language: "Español", level: "Nativo" },
         { language: "Ingles", level: "50%" }
+    ],
+
+    // ─── Hero Section ─────────────────────────────────────────────────────
+    hero: {
+        badge: "DEV • FULL STACK",
+        firstName: "DEYBY",
+        lastName: "DERAS",
+        subtitle: "SOFTWARE DEVELOPER",
+        description: "Desarrollador Full Stack con experiencia en.NET Core, React y arquitecturas modernas.- San Pedro Sula, Honduras.",
+        cvPath: "/assets/Deyby_Cardenas_CV.pdf",
+        whatsappLink: "https://wa.me/50489290835"
+    },
+
+    // ─── About Section ────────────────────────────────────────────────────
+    about: {
+        label: "• SOBRE MÍ",
+        heading: {
+            line1: "Construyendo",
+            accent1: "soluciones",
+            mid: "web",
+            line2: "y",
+            accent2: "móviles"
+        },
+        descriptions: [
+            "Me apasiona desarrollar software que resuelve problemas reales y genera impacto. Enfocado en crear aplicaciones escalables, seguras y mantenibles, utilizando tecnologías modernas y buenas prácticas de desarrollo.",
+            "Tengo experiencia colaborando en equipos multidisciplinarios, participando en el diseño, desarrollo y mejora continua de soluciones digitales enfocadas en rendimiento y experiencia de usuario."
+        ],
+        status: {
+            location: "● Honduras",
+            availability: "● Disponible para proyectos"
+        }
+    },
+
+    // ─── Contact Links ────────────────────────────────────────────────────
+    contactLinks: {
+        whatsapp: "https://wa.me/50489290835",
+        linkedin: "https://www.linkedin.com/in/deyby-josue-deras-cardenas-2534a2390/",
+        linkedinName: "Deyby Josue",
+        github: "https://github.com/Josidkk",
+        githubName: "Josidkk"
+    },
+
+    // ─── Skill Category Display Names ─────────────────────────────────────
+    skillCategoryNames: {
+        web: "Desarrollo Web",
+        database: "Bases de Datos",
+        mobile: "Desarrollo Móvil",
+        desktop: "Desktop",
+        methodologies: "Metodología",
+        tools: "Herramientas"
+    },
+
+    // ─── Projects ──────────────────────────────────────────────────────
+    // Si este array está vacío o no existe, la sección no se muestra.
+    projects: [
+
+        // {
+        //     title: "Sistema de Gestión de Inventario",
+        //     description: "Plataforma web empresarial para el control de inventario, seguimiento de activos y generación de reportes en tiempo real. Desarrollada con arquitectura limpia y patrón MVVM.",
+        //     image: "https://placehold.co/800x450/0d1117/ff79c6?text=Inventory+System",
+        //     technologies: ["C#", "ASP.NET Core", "SQL Server", "React"],
+        //     link: "",
+        //     github: ""
+        // },
+        // {
+        //     title: "App Móvil de Delivery",
+        //     description: "Aplicación móvil multiplataforma para pedidos a domicilio con seguimiento en tiempo real, pasarela de pagos y panel de administración para restaurantes.",
+        //     image: "https://placehold.co/800x450/0d1117/8be9fd?text=Delivery+App",
+        //     technologies: ["Flutter", "Dart", "NestJs", "MySQL"],
+        //     link: "",
+        //     github: ""
+        // }
     ]
 };
