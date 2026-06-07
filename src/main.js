@@ -4,6 +4,7 @@ import { cvData } from './data.js';
 import { TronRace } from './scripts/tron-race.js';
 import { showToast } from './scripts/toast.js';
 import { KonamiCode } from './scripts/konami.js';
+import { lockScroll, unlockScroll } from './scripts/scrollLock.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     startBootSequence();
@@ -41,7 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const isOpen = hamburgerBtn.classList.toggle('is-open');
             navLinks.classList.toggle('is-open');
             hamburgerBtn.setAttribute('aria-expanded', isOpen);
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            if (isOpen) {
+                lockScroll('hamburger');
+            } else {
+                unlockScroll('hamburger');
+            }
         });
 
         navLinks.querySelectorAll('a').forEach(link => {
@@ -49,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 hamburgerBtn.classList.remove('is-open');
                 navLinks.classList.remove('is-open');
                 hamburgerBtn.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
+                unlockScroll('hamburger');
             });
         });
     }
@@ -251,7 +256,7 @@ function renderContent() {
         `;
 
         modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        lockScroll('modal');
     };
 
     const openAllSkillsModal = () => {
@@ -280,7 +285,7 @@ function renderContent() {
         `;
 
         modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        lockScroll('modal');
     };
 
     document.addEventListener('click', (e) => {
@@ -301,7 +306,7 @@ function renderContent() {
 
     const closeModal = () => {
         modal.classList.add('hidden');
-        document.body.style.overflow = '';
+        unlockScroll('modal');
     };
 
     modalClose.addEventListener('click', closeModal);

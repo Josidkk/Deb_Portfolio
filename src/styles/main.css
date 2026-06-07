@@ -157,7 +157,6 @@
 /* Variables are now imported from tokens.css */
 
 html {
-    scroll-behavior: smooth;
     scroll-padding-top: 100px;
     /* Offset for fixed glass-nav */
 }
@@ -186,6 +185,7 @@ body {
     font-family: var(--font-sans);
     min-height: 100vh;
     position: relative;
+    touch-action: manipulation;
 }
 
 /* ═══════════════════════════════════════════
@@ -311,7 +311,6 @@ body::after {
     position: relative;
 
     z-index: 1;
-    overflow-x: hidden;
     width: 100%;
 }
 

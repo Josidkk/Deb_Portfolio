@@ -13,6 +13,7 @@
  */
 
 import { initScrollAnimations } from './scrollAnimations.js';
+import { lockScroll, unlockScroll } from './scrollLock.js';
 
 // ─── Timing (ms) ────────────────────────────────────────────────────────────
 const T = {
@@ -27,7 +28,7 @@ const T = {
 };
 // ─── Public entry point ──────────────────────────────────────────────────────
 export function startBootSequence() {
-    document.body.style.overflow = 'hidden';
+    lockScroll('boot');
 
     // Vaciar el layer ANTES del primer paint para evitar el flash del <img> anterior.
     // El #loading-layer viene vacío desde el HTML, así que esto es solo por seguridad.
@@ -198,7 +199,7 @@ function terminateBoot() {
         window.dispatchEvent(new Event('resize'));
 
         setTimeout(() => {
-            document.body.style.overflow = '';
+            unlockScroll('boot');
         }, 1200);
 
         setTimeout(() => {
