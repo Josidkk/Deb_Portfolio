@@ -132,7 +132,7 @@ export const cvData = {
         {
             title: "Josidk Plantilla Admin",
             description: "plataforma de gestión empresarial moderna diseñada para centralizar operaciones, análisis y administración de negocios en una sola interfaz intuitiva. Su diseño combina elegancia, rendimiento y accesibilidad mediante una estética minimalista con una paleta de colores totalmente personalizable, transmite exclusividad y profesionalismo.",
-            image: "./public/assets/Shot2.png",
+            image: "/public/assets/Shot2.png",
             technologies: ["TypeScript", "Angular +18"],
             link: "",
             github: "",
