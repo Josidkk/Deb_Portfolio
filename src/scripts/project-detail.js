@@ -69,12 +69,12 @@ const projectData = {
     ],
 
     techStack: [
-        { name: 'Angular', version: '18', icon: 'devicon-angularjs-plain', color: '#dd0031' },
-        { name: 'Angular Material', version: '18', icon: 'fas fa-cubes', color: '#9c27b0' },
-        { name: 'Chart.js / ng2-charts', version: '4.5 / 6.0', icon: 'fas fa-chart-pie', color: '#ff6384' },
-        { name: 'Tabler Icons', version: 'CDN', icon: 'fas fa-shapes', color: '#8be9fd' },
-        { name: 'Plus Jakarta Sans', version: 'Google Fonts', icon: 'fas fa-font', color: '#4285f4' },
-        { name: 'SCSS', version: '—', icon: 'devicon-sass-original', color: '#cd6799' }
+        { name: 'Angular', version: '18', icon: 'devicon-angularjs-plain', color: 'var(--color-accent-primary)' },
+        { name: 'Angular Material', version: '18', icon: 'fas fa-cubes', color: 'var(--color-accent-primary)' },
+        { name: 'Chart.js / ng2-charts', version: '4.5 / 6.0', icon: 'fas fa-chart-pie', color: 'var(--color-accent-primary)' },
+        { name: 'Tabler Icons', version: 'CDN', icon: 'fas fa-shapes', color: 'var(--color-accent-primary)' },
+        { name: 'Plus Jakarta Sans', version: 'Google Fonts', icon: 'fas fa-font', color: 'var(--color-accent-primary)' },
+        { name: 'SCSS', version: '—', icon: 'devicon-sass-original', color: 'var(--color-accent-primary)' }
     ],
 
     structure: [
@@ -228,9 +228,9 @@ function initSlider() {
     if (!track || !projectData.slides.length) return;
 
     // Render slides
-    track.innerHTML = projectData.slides.map(s => `
+    track.innerHTML = projectData.slides.map((s, i) => `
         <div class="pd-slider-slide">
-            <img src="${s.src}" alt="${s.alt}" loading="lazy">
+            <img src="${s.src}" alt="${s.alt}" loading="${i === 0 ? 'eager' : 'lazy'}">
             <div class="pd-slider-slide-overlay"></div>
         </div>
     `).join('');

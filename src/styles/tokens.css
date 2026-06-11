@@ -1,7 +1,7 @@
 /* 
-  Aesthetic Philosophy: Gotham Noir / Hacker Monochromatic
-  Description: A high-contrast, deep-space dark mode that matches the halftone Batman aesthetic. 
-  Uses pure blacks, stark whites, and a vibrant accent color for interaction.
+  Aesthetic Philosophy: Warm Sunset / Dark Amber
+  Description: A warm, dark, sunset-inspired palette. 
+  Deep brown backgrounds with peach and orange accents on cream text.
 */
 
 :root {
@@ -10,25 +10,25 @@
      ========================================= */
 
    /* Backgrounds */
-   --color-bg-primary: #050507;
-   --color-bg-secondary: #0d0d12;
-   --color-bg-tertiary: #16161d;
-   --color-bg-inverse: #ffffff;
+   --color-bg-primary: #0F0B07;
+   --color-bg-secondary: #1A1410;
+   --color-bg-tertiary: #3d2a1a;
+   --color-bg-inverse: #FFF7ED;
 
    /* Text */
-   --color-text-primary: #ffffff;
-   --color-text-secondary: #a1a1aa;
-   --color-text-tertiary: #71717a;
-   --color-text-inverse: #050507;
-   --color-text-muted: #8b949e;
-   --color-text-subtle: #6e7681;
-   --color-text-body: #c9d1d9;
+   --color-text-primary: #FFF7ED;
+   --color-text-secondary: #d4c4b0;
+   --color-text-tertiary: #a0896e;
+   --color-text-inverse: #1C1410;
+   --color-text-muted: #b89a82;
+   --color-text-subtle: #8a7260;
+   --color-text-body: #e8d5c4;
 
    /* Accents */
-   --color-accent-primary: #ff79c6;
-   --color-accent-primary-hover: #ff92d0;
-   --color-accent-secondary: #8be9fd;
-   --color-cyan: #00ffff;
+   --color-accent-primary: #FB923C;
+   --color-accent-primary-hover: #f97316;
+   --color-accent-secondary: #FDBA74;
+   --color-cyan: #FDBA74;
 
    /* Status Colors */
    --color-status-online: #50fa7b;
@@ -38,31 +38,31 @@
    --color-brand-gmail: #EA4335;
    --color-brand-whatsapp: #25D366;
    --color-brand-linkedin: #0A66C2;
-   --color-brand-github: #8B5CF6;
+   --color-brand-github: #FB923C;
 
    /* Surface Colors */
-   --color-surface-elevated: rgba(30, 30, 40, 0.5);
-   --color-surface-modal: rgba(30, 30, 45, 0.7);
-   --color-surface-dark: rgba(13, 17, 23, 0.97);
+   --color-surface-elevated: rgba(39, 26, 15, 0.5);
+   --color-surface-modal: rgba(39, 26, 15, 0.85);
+   --color-surface-dark: rgba(28, 20, 16, 0.97);
 
    /* Glow Colors */
-   --color-glow-pink: rgba(255, 121, 198, 0.25);
-   --color-glow-pink-hot: rgba(236, 72, 153, 0.6);
-   --color-glow-cyan: rgba(139, 233, 253, 0.03);
-   --color-glow-purple: rgba(189, 147, 249, 0.06);
+   --color-glow-orange: rgba(251, 146, 60, 0.25);
+   --color-glow-orange-hot: rgba(249, 115, 22, 0.5);
+   --color-glow-peach: rgba(253, 186, 116, 0.08);
+   --color-glow-amber: rgba(251, 146, 60, 0.06);
 
    /* Borders & Surfaces */
-   --color-border-primary: rgba(255, 255, 255, 0.1);
-   --color-border-secondary: rgba(255, 255, 255, 0.05);
-   --color-border-focus: rgba(255, 121, 198, 0.5);
-   --color-border-timeline: #30363d;
-   --color-border-subtle: rgba(255, 255, 255, 0.05);
-   --color-border-light: rgba(255, 255, 255, 0.08);
-   --color-border-medium: rgba(255, 255, 255, 0.1);
-   --color-border-strong: rgba(255, 255, 255, 0.25);
-   --color-border-brand-pink: rgba(255, 121, 198, 0.45);
+   --color-border-primary: rgba(255, 247, 237, 0.1);
+   --color-border-secondary: rgba(255, 247, 237, 0.05);
+   --color-border-focus: rgba(251, 146, 60, 0.5);
+   --color-border-timeline: #3d2a1a;
+   --color-border-subtle: rgba(255, 247, 237, 0.05);
+   --color-border-light: rgba(255, 247, 237, 0.08);
+   --color-border-medium: rgba(255, 247, 237, 0.1);
+   --color-border-strong: rgba(255, 247, 237, 0.25);
+   --color-border-brand-orange: rgba(251, 146, 60, 0.45);
 
-   --color-surface-overlay: rgba(5, 5, 7, 0.85);
+   --color-surface-overlay: rgba(28, 20, 16, 0.85);
 
    /* =========================================
      SPACING SCALE (4px Base - Brutalist/Tight)
@@ -144,7 +144,7 @@
    --primary-color: var(--color-text-primary);
    --secondary-color: var(--color-accent-primary);
    --accent-color: var(--color-accent-secondary);
-   --glass-bg: rgba(5, 5, 7, 0.6);
+   --glass-bg: rgba(28, 20, 16, 0.6);
    --glass-border: var(--color-border-primary);
    --font-mono: var(--font-family-mono);
    --font-sans: var(--font-family-body);

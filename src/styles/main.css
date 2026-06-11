@@ -43,7 +43,7 @@
     inset: 0;
     background: radial-gradient(ellipse at center,
             transparent 35%,
-            rgba(5, 5, 7, 0.7) 100%);
+            rgba(28, 20, 16, 0.7) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -55,7 +55,7 @@
     height: 520px;
     border-radius: 50%;
     background: radial-gradient(circle,
-            rgba(255, 121, 198, 0.10) 0%,
+            rgba(251, 146, 60, 0.12) 0%,
             transparent 70%);
     top: 50%;
     left: 50%;
@@ -84,13 +84,13 @@
     width: 200px;
     height: 200px;
     overflow: visible;
-    filter: drop-shadow(0 0 0px rgba(255, 121, 198, 0));
+    filter: drop-shadow(0 0 0px rgba(251, 146, 60, 0));
     transition: filter 1s ease;
 }
 
 #boot-logo.lit {
     filter:
-        drop-shadow(0 0 28px rgba(255, 121, 198, 0.45)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+        drop-shadow(0 0 28px rgba(251, 146, 60, 0.45)) drop-shadow(0 0 8px rgba(255, 247, 237, 0.12));
 }
 
 /* ── Paths trazados (> y D) ── */
@@ -206,12 +206,12 @@ body::before {
         radial-gradient(ellipse 60% 55% at 50% 40%,
             transparent 0%,
             transparent 30%,
-            rgba(13, 17, 23, 0.3) 55%,
-            rgba(13, 17, 23, 0.65) 72%,
+            rgba(28, 20, 16, 0.3) 55%,
+            rgba(28, 20, 16, 0.65) 72%,
             rgba(0, 0, 0, 0.88) 100%),
         radial-gradient(ellipse 45% 40% at 50% 45%,
-            rgba(189, 147, 249, 0.06) 0%,
-            rgba(139, 233, 253, 0.03) 40%,
+            rgba(251, 146, 60, 0.06) 0%,
+            rgba(253, 186, 116, 0.03) 40%,
             transparent 70%);
 }
 
@@ -225,12 +225,12 @@ body::after {
             radial-gradient(circle at 50% 40%,
                 transparent 0%,
                 transparent 15%,
-                rgba(13, 17, 23, 0.5) 35%,
-                rgba(13, 17, 23, 0.8) 55%,
+                rgba(28, 20, 16, 0.5) 35%,
+                rgba(28, 20, 16, 0.8) 55%,
                 rgba(0, 0, 0, 0.95) 100%),
             radial-gradient(circle at 50% 45%,
-                rgba(189, 147, 249, 0.08) 0%,
-                rgba(139, 233, 253, 0.04) 30%,
+                rgba(251, 146, 60, 0.08) 0%,
+                rgba(253, 186, 116, 0.04) 30%,
                 transparent 60%);
     }
 }
@@ -494,16 +494,16 @@ body.overdrive-mode #bg-canvas {
     font-family: var(--font-mono);
     font-weight: 800;
     letter-spacing: 5px;
-    color: white;
+    color: var(--color-text-primary);
     font-size: 1.8rem;
-    text-shadow: 0 0 15px rgba(139, 233, 253, 0.6);
+    text-shadow: 0 0 15px rgba(251, 146, 60, 0.4);
 }
 
 .loading-logo {
     height: 200px;
     width: auto;
     max-width: 80vw;
-    filter: drop-shadow(0 0 25px var(--primary-color));
+    filter: drop-shadow(0 0 25px var(--secondary-color));
 }
 
 @media (max-width: 768px) {
@@ -562,7 +562,7 @@ body.overdrive-mode #bg-canvas {
     font-weight: 400;
     letter-spacing: 9.5px;
     /* Fine-tuned to match "JOSUE" width */
-    color: #8b949e;
+    color: var(--color-text-muted);
     text-transform: uppercase;
     transition: all 0.4s ease;
     margin-right: -9.5px;
@@ -587,7 +587,7 @@ body.overdrive-mode #bg-canvas {
 
 .logo-stacked:hover .logo-line-top {
     letter-spacing: 8px;
-    color: white;
+    color: var(--color-text-primary);
 }
 
 .logo-stacked:hover .logo-line-bottom {
@@ -647,8 +647,8 @@ body.overdrive-mode #bg-canvas {
 
     .glass-nav::before {
         border-radius: 9999px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 247, 237, 0.1);
+        border-bottom: 1px solid rgba(255, 247, 237, 0.1);
     }
 }
 
@@ -667,7 +667,7 @@ body.overdrive-mode #bg-canvas {
 }
 
 .nav-links a {
-    color: #8b949e;
+    color: var(--color-text-muted);
     text-decoration: none;
     position: relative;
     font-weight: 500;
@@ -692,7 +692,7 @@ body.overdrive-mode #bg-canvas {
 .nav-links a:hover,
 .nav-links a.is-active {
     color: var(--text-color);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 247, 237, 0.08);
     border-radius: 8px;
 }
 
@@ -744,7 +744,7 @@ body.overdrive-mode #bg-canvas {
     font-family: var(--font-sans);
     font-weight: 900;
     line-height: 0.88;
-    color: #ffffff;
+    color: var(--color-text-primary);
     margin-bottom: 0.8rem;
     letter-spacing: -3px;
     text-transform: uppercase;
@@ -801,7 +801,7 @@ body.overdrive-mode #bg-canvas {
     text-transform: uppercase;
     text-decoration: none;
     box-shadow:
-        0 2px 12px rgba(255, 121, 198, 0.25),
+        0 2px 12px rgba(251, 146, 60, 0.25),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
@@ -825,7 +825,7 @@ body.overdrive-mode #bg-canvas {
     border-color: var(--color-accent-primary-hover);
     transform: translateY(-2px);
     box-shadow:
-        0 6px 20px rgba(255, 121, 198, 0.4),
+        0 6px 20px rgba(251, 146, 60, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
@@ -835,35 +835,35 @@ body.overdrive-mode #bg-canvas {
 
 .download-btn:active {
     transform: translateY(1px);
-    box-shadow: 0 1px 6px rgba(255, 121, 198, 0.2);
+    box-shadow: 0 1px 6px rgba(251, 146, 60, 0.2);
 }
 
 /* Contrátame — Ghost outline variant with cyan accent */
 .download-btn.hire-me-btn {
     background: transparent;
-    border: 1px solid rgba(139, 233, 253, 0.35);
+    border: 1px solid rgba(253, 186, 116, 0.35);
     color: var(--color-accent-secondary);
     box-shadow: none;
 }
 
 .download-btn.hire-me-btn::before {
-    background: linear-gradient(90deg, transparent, rgba(139, 233, 253, 0.08), transparent);
+    background: linear-gradient(90deg, transparent, rgba(253, 186, 116, 0.08), transparent);
 }
 
 .download-btn.hire-me-btn:hover {
-    background: rgba(139, 233, 253, 0.08);
+    background: rgba(253, 186, 116, 0.08);
     border-color: var(--color-accent-secondary);
-    box-shadow: 0 4px 18px rgba(139, 233, 253, 0.15);
-    color: #ffffff;
+    box-shadow: 0 4px 18px rgba(253, 186, 116, 0.15);
+    color: var(--color-text-primary);
 }
 
 .download-btn.hire-me-btn:active {
-    box-shadow: 0 1px 4px rgba(139, 233, 253, 0.1);
+    box-shadow: 0 1px 4px rgba(253, 186, 116, 0.1);
 }
 
 .blinking-cursor {
     animation: blink 1s step-end infinite;
-    color: #ffffff;
+    color: var(--color-text-primary);
 }
 
 @keyframes blink {
@@ -881,7 +881,7 @@ body.overdrive-mode #bg-canvas {
 .console-badge {
     padding: 0.4rem 1.2rem;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 247, 237, 0.25);
     border-radius: 50px;
     color: var(--color-text-muted);
     font-family: var(--font-sans);
@@ -893,7 +893,7 @@ body.overdrive-mode #bg-canvas {
 }
 
 .accent-text {
-    color: #ffffff;
+    color: var(--color-text-primary);
     font-weight: 700;
 }
 
@@ -1075,7 +1075,7 @@ body.overdrive-mode #bg-canvas {
 .skill-item i {
     font-size: 3.5rem;
     /* Larger icons */
-    color: #8b949e;
+    color: var(--color-text-muted);
     transition: 0.3s;
 }
 
@@ -1106,7 +1106,7 @@ body.overdrive-mode #bg-canvas {
     align-items: center;
     gap: 0.8rem;
     color: var(--text-color);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 247, 237, 0.05);
     padding-bottom: 1rem;
 }
 
@@ -1141,7 +1141,7 @@ body.overdrive-mode #bg-canvas {
 
 .skill-item i {
     font-size: 3rem;
-    color: #8b949e;
+    color: var(--color-text-muted);
     /* Grayscale initially */
     transition: 0.3s;
 }
@@ -1150,7 +1150,7 @@ body.overdrive-mode #bg-canvas {
     color: var(--text-color);
     /* Reveal original color on hover (handled via specific classes or just brighten) */
     transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+    filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.3));
 }
 
 /* CONTACT SECTION STYLES */
@@ -1166,8 +1166,8 @@ body.overdrive-mode #bg-canvas {
     align-items: center;
     gap: 1.2rem;
     padding: 1rem 1.2rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 247, 237, 0.02);
+    border: 1px solid rgba(255, 247, 237, 0.05);
     /* Subtle border */
     border-radius: 12px;
     text-decoration: none;
@@ -1188,7 +1188,7 @@ body.overdrive-mode #bg-canvas {
     width: 35px;
     height: 35px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 247, 237, 0.1);
     background: var(--color-surface-elevated);
     color: var(--text-color);
     display: flex;
@@ -1201,17 +1201,17 @@ body.overdrive-mode #bg-canvas {
 }
 
 .action-btn:hover {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+    background: var(--secondary-color);
+    color: var(--color-text-inverse);
+    border-color: var(--secondary-color);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Hover Effect: Glow border and slight lift */
 .contact-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--primary-color);
+    background: rgba(255, 247, 237, 0.05);
+    border-color: var(--secondary-color);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -1243,10 +1243,10 @@ body.overdrive-mode #bg-canvas {
     color: var(--color-brand-linkedin);
 }
 
-/* GitHub — morado */
+/* GitHub — orange */
 .contact-item:has(.fa-github):hover .icon-box {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.5);
+    background: rgba(251, 146, 60, 0.15);
+    border-color: rgba(251, 146, 60, 0.5);
     color: var(--color-brand-github);
 }
 
@@ -1255,8 +1255,8 @@ body.overdrive-mode #bg-canvas {
     height: 45px;
     flex-shrink: 0;
     /* Prevent shrinking */
-    background: rgba(30, 30, 40, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(39, 26, 15, 0.5);
+    border: 1px solid rgba(255, 247, 237, 0.1);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -1271,15 +1271,15 @@ body.overdrive-mode #bg-canvas {
     margin-top: 1rem;
     padding: 0.8rem 1rem;
     border-radius: 8px;
-    background: rgba(13, 17, 23, 0.4);
-    border: 1px dashed rgba(139, 233, 253, 0.3);
+    background: rgba(28, 20, 16, 0.4);
+    border: 1px dashed rgba(253, 186, 116, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     font-family: var(--font-mono);
     font-size: 0.85rem;
-    color: #8b949e;
+    color: var(--color-text-muted);
     letter-spacing: 1px;
 }
 
@@ -1337,7 +1337,7 @@ body.overdrive-mode #bg-canvas {
 
 .contact-info .label {
     font-size: 0.75rem;
-    color: #8b949e;
+    color: var(--color-text-muted);
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 1px;
@@ -1354,7 +1354,7 @@ body.overdrive-mode #bg-canvas {
 
 .skill-name {
     font-size: 0.8rem;
-    color: #8b949e;
+    color: var(--color-text-muted);
     font-family: var(--font-mono);
 }
 
@@ -1507,7 +1507,7 @@ section {
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         background: var(--glass-bg);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 247, 237, 0.05);
     }
 
     .nav-logo {
@@ -1542,7 +1542,7 @@ section {
         display: block;
         width: 100%;
         height: 2px;
-        background: #ffffff;
+        background: var(--color-text-primary);
         border-radius: 2px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transform-origin: center;
@@ -1639,7 +1639,7 @@ section {
         padding-left: 0;
         border-left: none;
         max-width: 320px;
-        color: #8b949e;
+        color: var(--color-text-muted);
         margin-bottom: 1rem;
     }
 
@@ -1822,7 +1822,7 @@ section {
     width: 90%;
     max-width: 500px;
     background: var(--color-surface-modal);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 247, 237, 0.1);
     border-radius: 20px;
     backdrop-filter: blur(15px);
     padding: 2.5rem;
@@ -1839,8 +1839,8 @@ section {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 247, 237, 0.05);
+    border: 1px solid rgba(255, 247, 237, 0.1);
     color: var(--text-color);
     width: 40px;
     height: 40px;
@@ -1854,8 +1854,8 @@ section {
 }
 
 .modal-close:hover {
-    background: var(--primary-color);
-    color: white;
+    background: var(--secondary-color);
+    color: var(--color-text-inverse);
     transform: rotate(90deg);
 }
 
@@ -1869,20 +1869,20 @@ section {
 .modal-icon-box {
     width: 80px;
     height: 80px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 247, 237, 0.05);
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: var(--primary-color);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+    border: 1px solid rgba(255, 247, 237, 0.1);
 }
 
 .modal-title-box h2 {
     font-size: 1.8rem;
     margin: 0;
-    color: white;
+    color: var(--color-text-primary);
     letter-spacing: 1px;
 }
 
@@ -1944,7 +1944,7 @@ section {
     /* el gap de about-content ya da espacio */
 
     font-size: 0.82rem;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     text-decoration: none;
     font-weight: 600;
     letter-spacing: 1px;
@@ -1953,17 +1953,17 @@ section {
     align-items: center;
     gap: 0.5rem;
 
-    background: rgba(13, 17, 23, 0.6);
+    background: rgba(28, 20, 16, 0.6);
     padding: 0.45rem 0.9rem;
     border-radius: 6px;
-    border: 1px solid rgba(139, 233, 253, 0.2);
+    border: 1px solid rgba(251, 146, 60, 0.2);
     transition: all 0.3s ease;
 }
 
 .ver-mas-btn:hover {
-    color: white;
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    color: var(--color-text-inverse);
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
     transform: translateX(3px);
 }
 
@@ -1979,7 +1979,7 @@ section {
 }
 
 .all-skills-body::-webkit-scrollbar-thumb {
-    background: rgba(139, 233, 253, 0.3);
+    background: rgba(253, 186, 116, 0.3);
     border-radius: 10px;
 }
 
@@ -2017,13 +2017,13 @@ section {
 .skill-list-info h3 {
     margin: 0 0 0.4rem 0;
     font-size: 1.1rem;
-    color: white;
+    color: var(--color-text-primary);
 }
 
 .skill-list-info p {
     margin: 0;
     font-size: 0.95rem;
-    color: #8b949e;
+    color: var(--color-text-muted);
     line-height: 1.5;
 }
 
@@ -2116,7 +2116,7 @@ section {
     /* se achica antes de cortar */
     line-height: 1.1;
     font-weight: 700;
-    color: #fff;
+    color: var(--color-text-primary);
     margin: 0;
     white-space: normal;
     /* nunca recorta en …  */
@@ -2125,7 +2125,7 @@ section {
 .about-heading span {
     color: var(--secondary-color);
     /* Un resplandor amplio, suave y sutil */
-    text-shadow: 0 0 25px rgba(236, 72, 153, 0.6);
+    text-shadow: 0 0 25px rgba(251, 146, 60, 0.5);
 }
 
 .about-description {
@@ -2168,10 +2168,10 @@ section {
 .soft-skill-card:hover {
     transform: translateY(-4px);
 
-    border-color: var(--color-border-brand-pink);
+    border-color: var(--color-border-brand-orange);
 
     box-shadow:
-        0 0 25px rgba(255, 121, 198, .08);
+        0 0 25px rgba(251, 146, 60, .08);
 }
 
 .soft-skill-card i {
@@ -2182,7 +2182,7 @@ section {
 .soft-skill-card span {
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    color: #fff;
+    color: var(--color-text-primary);
     text-align: center;
 }
 
@@ -2195,7 +2195,7 @@ section {
     align-items: center;
     gap: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 247, 237, 0.06);
 }
 
 .about-footer p {
@@ -2218,10 +2218,10 @@ section {
 .availability {
     padding: 0.7rem 1.1rem;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 247, 237, 0.08);
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 247, 237, 0.02);
     white-space: nowrap;
 }
 
@@ -2349,15 +2349,14 @@ section {
 }
 
 .project-card {
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 247, 237, 0.08);
     border-radius: 12px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 247, 237, 0.02);
     transition: all 0.3s ease;
 }
 
 .project-card:hover {
-    border-color: var(--primary-color);
     transform: translateY(-4px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
@@ -2383,7 +2382,7 @@ section {
 .project-image-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(5, 5, 7, 0.8) 0%, transparent 50%);
+    background: linear-gradient(to top, rgba(28, 20, 16, 0.8) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -2417,8 +2416,8 @@ section {
 
 .project-tech-tag {
     padding: 0.25rem 0.65rem;
-    background: rgba(255, 121, 198, 0.1);
-    border: 1px solid rgba(255, 121, 198, 0.25);
+    background: rgba(251, 146, 60, 0.1);
+    border: 1px solid rgba(251, 146, 60, 0.25);
     border-radius: 6px;
     font-size: 0.72rem;
     font-weight: 600;
@@ -2442,16 +2441,29 @@ section {
     font-weight: 600;
     color: var(--color-text-muted);
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 247, 237, 0.1);
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 247, 237, 0.03);
     transition: all 0.2s ease;
+}
+
+.project-link-primary {
+    background: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    color: #1C1410;
+    font-weight: 700;
+}
+
+.project-link-primary:hover {
+    background: var(--color-accent-primary-hover);
+    border-color: var(--color-accent-primary-hover);
+    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
 }
 
 .project-link:hover {
     color: var(--text-color);
-    border-color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--secondary-color);
+    background: rgba(255, 247, 237, 0.06);
 }
 
 .project-link i {

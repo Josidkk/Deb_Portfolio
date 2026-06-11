@@ -10,11 +10,19 @@ import { lockScroll, unlockScroll } from './scripts/scrollLock.js';
 document.addEventListener('DOMContentLoaded', () => {
     const skipBoot = new URLSearchParams(window.location.search).has('noBoot');
     if (skipBoot) {
+        // Remover el ancla para que no interfiera con el renderizado
+        window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+        
         const loadingLayer = document.getElementById('loading-layer');
         if (loadingLayer) loadingLayer.style.display = 'none';
         const app = document.getElementById('app');
         if (app) app.classList.remove('hidden');
-        initScrollAnimations();
+        
+        // Forzar reflow para asegurar que el contenido se renderice
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            initScrollAnimations();
+        }, 0);
     } else {
         startBootSequence();
     }
@@ -142,7 +150,7 @@ function renderContent() {
                                 <linearGradient id="rg" x1="0%" y1="0%"
                                                 x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="rgba(255,255,255,0.5)" />
-                                    <stop offset="50%" stop-color="#ff79c6" />
+                                    <stop offset="50%" stop-color="#FB923C" />
                                     <stop offset="100%" stop-color="rgba(255,255,255,0.3)" />
                                 </linearGradient>
                             </defs>
@@ -156,7 +164,7 @@ function renderContent() {
                             <circle cx="65" cy="3" r="2"
                                     fill="rgba(255,255,255,0.5)"/>
                             <circle cx="65" cy="127" r="2"
-                                    fill="#ff79c6"
+                                    fill="#FB923C"
                                     opacity="0.8"/>
                             <circle cx="3" cy="65" r="2"
                                     fill="rgba(255,255,255,0.3)"/>
@@ -318,7 +326,7 @@ function renderContent() {
             <span class="timeline-date">${edu.year}</span>
             <span class="timeline-company">${edu.institution}</span>
             <h4 class="timeline-role">${edu.degree}</h4>
-            ${edu.description ? `<p style="font-size: 0.9rem; color: #8b949e; margin-top: 0.5rem; margin-bottom: 0.5rem;">${edu.description}</p>` : ''}
+            ${edu.description ? `<p style="font-size: 0.9rem; color: var(--color-text-muted); margin-top: 0.5rem; margin-bottom: 0.5rem;">${edu.description}</p>` : ''}
             ${edu.link ? `
                 <a href="${edu.link}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary-color); text-decoration: none; font-size: 0.9rem; margin-top: 0.5rem; padding: 0.3rem 0.8rem; border: 1px solid var(--primary-color); border-radius: 4px; transition: 0.3s;">
                     <i class="fas fa-external-link-alt"></i> Ver Noticia
@@ -340,7 +348,7 @@ function renderContent() {
             <span class="timeline-date">${job.period}</span>
             <span class="timeline-company">${job.company}</span>
             <h4 class="timeline-role">${job.role}</h4>
-            <p style="font-size: 0.9rem; color: #8b949e; margin-top: 0.5rem;">${job.description}</p>
+            <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-top: 0.5rem;">${job.description}</p>
         </div>
     `).join('');
 

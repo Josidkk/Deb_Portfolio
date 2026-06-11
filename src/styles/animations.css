@@ -172,7 +172,7 @@
 }
 
 .glass-nav.nav-scrolled::before {
-    background: rgba(13, 17, 23, 0.7);
+    background: var(--glass-bg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 

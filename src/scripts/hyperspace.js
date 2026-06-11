@@ -127,7 +127,7 @@ export class HyperspaceSystem {
         const isOverdrive = document.body.classList.contains('overdrive-mode');
 
         // Fondo
-        this.ctx.fillStyle = isOverdrive ? '#000' : '#0d1117';
+        this.ctx.fillStyle = '#000';
         this.ctx.fillRect(0, 0, cw, ch);
 
         // Intentar capturar un nuevo frame del video
