@@ -301,6 +301,24 @@ body::before {
     box-shadow: 0 8px 30px rgba(251, 146, 60, 0.5);
 }
 
+/* Secondary — GitHub (outline) */
+.pd-btn-secondary {
+    background: transparent;
+    color: var(--pd-accent);
+    border: 1.5px solid var(--pd-accent);
+    box-shadow: 0 4px 20px rgba(251, 146, 60, 0.2);
+}
+
+.pd-btn-secondary::before {
+    background: linear-gradient(90deg, transparent, rgba(251, 146, 60, 0.1), transparent);
+}
+
+.pd-btn-secondary:hover {
+    background: var(--pd-accent);
+    color: #1C1410;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(251, 146, 60, 0.4);
+}
 
 
 /* ═══════════════════════════════════════════

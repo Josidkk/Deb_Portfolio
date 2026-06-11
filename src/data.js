@@ -135,7 +135,7 @@ export const cvData = {
             image: "/assets/Shot2.png",
             technologies: ["TypeScript", "Angular +18"],
             link: "",
-            github: "",
+            github: "https://github.com/Josidkk/Josidk_Template",
             slug: "josidk-erp-template",
             detailPage: true
         },

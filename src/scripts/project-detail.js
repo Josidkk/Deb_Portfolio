@@ -7,6 +7,7 @@
 
 const projectData = {
     liveUrl: 'https://josidk-template.vercel.app/login',
+    githubUrl: 'https://github.com/Josidkk/Josidk_Template',
 
     slides: [
         { src: '/assets/Shot2.png', alt: 'Josidk ERP Template — Dashboard principal' }
@@ -213,6 +214,21 @@ function renderCommands() {
     });
 }
 
+function renderActionButtons() {
+    const container = document.querySelector('.pd-action-buttons');
+    if (!container) return;
+
+    if (projectData.githubUrl) {
+        const githubBtn = document.createElement('a');
+        githubBtn.href = projectData.githubUrl;
+        githubBtn.target = '_blank';
+        githubBtn.rel = 'noopener noreferrer';
+        githubBtn.className = 'pd-btn pd-btn-secondary';
+        githubBtn.innerHTML = '<i class="fab fa-github"></i><span>GitHub</span>';
+        container.appendChild(githubBtn);
+    }
+}
+
 // ── Slider ──────────────────────────────────────
 
 let currentSlide = 0;
@@ -347,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTechStack();
     renderStructure();
     renderCommands();
+    renderActionButtons();
     initSlider();
     initHamburger();
 
