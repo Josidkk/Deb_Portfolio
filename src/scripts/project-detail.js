@@ -9,7 +9,7 @@ const projectData = {
     liveUrl: 'https://josidk-template.vercel.app/login',
 
     slides: [
-        { src: '/public/assets/Shot2.png', alt: 'Josidk ERP Template — Dashboard principal' }
+        { src: '/assets/Shot2.png', alt: 'Josidk ERP Template — Dashboard principal' }
     ],
 
     features: [
