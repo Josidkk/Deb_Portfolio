@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Josidk ERP Template | Deyby Josue</title>
+    <meta name="description"
+        content="Dashboard administrativo moderno, modular y personalizable. Angular 18, Angular Material, Chart.js." />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="/public/assets/D_Portfolio_White.svg">
+
+    <link rel="stylesheet" href="/src/styles/tokens.css">
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <link rel="stylesheet" href="/src/styles/project-detail.css">
+    <link rel="stylesheet" type='text/css'
+        href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="glass-nav" id="main-nav">
+        <div class="logo logo-stacked">
+            <a href="/?noBoot=1" class="nav-logo-link">
+                <img src="/public/assets/D_Portfolio_White.svg" alt="Logo" class="nav-logo">
+            </a>
+            <div class="logo-text-box">
+                <span class="logo-line-top"></span>
+                <span class="logo-line-bottom"></span>
+            </div>
+        </div>
+
+        <!-- Hamburger button (only visible on mobile) -->
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="/?noBoot=1#hero" data-text="HOME"><i class="fas fa-house"></i> Inicio</a></li>
+            <li><a href="/?noBoot=1#about-card" data-text="ABOUT"><i class="fas fa-user"></i> Sobre</a></li>
+            <li><a href="/?noBoot=1#projects-card" data-text="PROJECTS"><i class="fas fa-code"></i> Proyectos</a></li>
+            <li><a href="/?noBoot=1#contact-card" data-text="CONTACT"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="pd-hero">
+        <div class="pd-hero-bg">
+            <div class="pd-hero-grid"></div>
+            <div class="pd-hero-glow"></div>
+        </div>
+        <div class="pd-hero-layout">
+            <!-- LEFT: Slider -->
+            <div class="pd-hero-left">
+                <div class="pd-slider" id="pd-slider">
+                    <div class="pd-slider-track" id="pd-slider-track">
+                        <!-- Slides rendered by JS -->
+                    </div>
+                    <button class="pd-slider-btn pd-slider-prev" id="pd-slider-prev" aria-label="Anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="pd-slider-btn pd-slider-next" id="pd-slider-next" aria-label="Siguiente">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="pd-slider-dots" id="pd-slider-dots"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Info -->
+            <div class="pd-hero-right">
+                <div class="pd-hero-badge">
+                    <i class="fab fa-angular"></i>
+                    <span>ANGULAR 18</span>
+                </div>
+                <h1 class="pd-hero-title">
+                    Josidk<br>
+                    <span class="pd-hero-accent">ERP Template</span>
+                </h1>
+                <p class="pd-hero-sub">Dashboard administrativo moderno, modular y listo para personalizar</p>
+
+                <div class="pd-hero-stack">
+                    <span class="pd-stack-tag"><i class="devicon-angularjs-plain"></i> Angular 18</span>
+                    <span class="pd-stack-tag"><i class="devicon-typescript-plain"></i> TypeScript</span>
+                    <span class="pd-stack-tag"><i class="devicon-sass-original"></i> SCSS</span>
+                    <span class="pd-stack-tag"><i class="fas fa-chart-pie"></i> Chart.js</span>
+                    <span class="pd-stack-tag"><i class="fas fa-cubes"></i> Angular Material</span>
+                    <span class="pd-stack-tag"><i class="fas fa-shapes"></i> Tabler Icons</span>
+                </div>
+
+                <div class="pd-action-buttons pd-action-buttons--left">
+                    <a href="https://josidk-template.vercel.app/login" target="_blank" rel="noopener noreferrer"
+                        class="pd-btn pd-btn-primary">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Live Preview</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="pd-section">
+        <div class="pd-container">
+            <div class="pd-section-header">
+                <span class="pd-section-label">• FUNCIONALIDADES</span>
+                <h2 class="pd-section-title">Todo lo que incluye</h2>
+            </div>
+            <div class="pd-features-grid" id="features-grid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- PERSONALIZATION -->
+    <section class="pd-section pd-section-alt">
+        <div class="pd-container">
+            <div class="pd-section-header">
+                <span class="pd-section-label">• PERSONALIZACIÓN</span>
+                <h2 class="pd-section-title">Sin tocar código</h2>
+            </div>
+            <div class="pd-custom-grid" id="custom-grid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section class="pd-section">
+        <div class="pd-container">
+            <div class="pd-section-header">
+                <span class="pd-section-label">• STACK TECNOLÓGICO</span>
+                <h2 class="pd-section-title">Tecnologías utilizadas</h2>
+            </div>
+            <div class="pd-tech-table" id="tech-table">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- STRUCTURE -->
+    <section class="pd-section pd-section-alt">
+        <div class="pd-container">
+            <div class="pd-section-header">
+                <span class="pd-section-label">• ARQUITECTURA</span>
+                <h2 class="pd-section-title">Estructura del proyecto</h2>
+            </div>
+            <div class="pd-structure" id="structure-tree">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMANDS -->
+    <section class="pd-section">
+        <div class="pd-container">
+            <div class="pd-section-header">
+                <span class="pd-section-label">• COMANDOS</span>
+                <h2 class="pd-section-title">Inicio rápido</h2>
+            </div>
+            <div class="pd-commands" id="commands-list">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pd-footer">
+        <div class="pd-container pd-footer-inner">
+            <p class="pd-footer-text">Hecho con <i class="fas fa-heart pd-heart"></i> por <strong>Josidk</strong></p>
+            <a href="/?noBoot=1#projects-card" class="pd-footer-back">
+                <i class="fas fa-arrow-left"></i> Volver al Portfolio
+            </a>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/scripts/project-detail.js"></script>
+</body>
+
+</html>

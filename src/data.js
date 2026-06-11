@@ -129,14 +129,16 @@ export const cvData = {
     // Si este array está vacío o no existe, la sección no se muestra.
     projects: [
 
-        // {
-        //     title: "Sistema de Gestión de Inventario",
-        //     description: "Plataforma web empresarial para el control de inventario, seguimiento de activos y generación de reportes en tiempo real. Desarrollada con arquitectura limpia y patrón MVVM.",
-        //     image: "https://placehold.co/800x450/0d1117/ff79c6?text=Inventory+System",
-        //     technologies: ["C#", "ASP.NET Core", "SQL Server", "React"],
-        //     link: "",
-        //     github: ""
-        // },
+        {
+            title: "Josidk Plantilla Admin",
+            description: "plataforma de gestión empresarial moderna diseñada para centralizar operaciones, análisis y administración de negocios en una sola interfaz intuitiva. Su diseño combina elegancia, rendimiento y accesibilidad mediante una estética minimalista con una paleta de colores totalmente personalizable, transmite exclusividad y profesionalismo.",
+            image: "./public/assets/Shot2.png",
+            technologies: ["TypeScript", "Angular +18"],
+            link: "",
+            github: "",
+            slug: "josidk-erp-template",
+            detailPage: true
+        },
         // {
         //     title: "App Móvil de Delivery",
         //     description: "Aplicación móvil multiplataforma para pedidos a domicilio con seguimiento en tiempo real, pasarela de pagos y panel de administración para restaurantes.",

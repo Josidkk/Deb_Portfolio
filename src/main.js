@@ -1,4 +1,5 @@
 import { startBootSequence } from './scripts/boot.js';
+import { initScrollAnimations } from './scripts/scrollAnimations.js';
 import { HyperspaceSystem } from './scripts/hyperspace.js';
 import { cvData } from './data.js';
 import { TronRace } from './scripts/tron-race.js';
@@ -7,7 +8,16 @@ import { KonamiCode } from './scripts/konami.js';
 import { lockScroll, unlockScroll } from './scripts/scrollLock.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    startBootSequence();
+    const skipBoot = new URLSearchParams(window.location.search).has('noBoot');
+    if (skipBoot) {
+        const loadingLayer = document.getElementById('loading-layer');
+        if (loadingLayer) loadingLayer.style.display = 'none';
+        const app = document.getElementById('app');
+        if (app) app.classList.remove('hidden');
+        initScrollAnimations();
+    } else {
+        startBootSequence();
+    }
     renderContent();
     setupInteractions();
     new HyperspaceSystem('bg-canvas');
@@ -458,6 +468,7 @@ function renderContent() {
                         ${project.technologies.map(tech => `<span class="project-tech-tag">${tech}</span>`).join('')}
                     </div>
                     <div class="project-links">
+                        ${project.detailPage && project.slug ? `<a href="/project-detail.html" class="project-link project-link-primary"><i class="fas fa-arrow-right"></i> Ver Detalles</a>` : ''}
                         ${project.link ? `<a href="${project.link}" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>` : ''}
                         ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Código</a>` : ''}
                     </div>
