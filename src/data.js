@@ -6,7 +6,7 @@ export const cvData = {
         email: "deybyderas@gmail.com",
         location: "San Pedro Sula, Honduras"
     },
-    summary: "Desarrollador de Software fullstack con experiencia reciente en .NET Core, C#, SQL Server, Flutter y desarrollo de APIs RESTful. He construido prototipos en Figma y soluciones web/mobile con bases de datos SQL, logrando mejoras en rendimiento y tiempos de entrega. Busco crear productos eficientes y mantenibles en entornos colaborativos.",
+    summary: "Soy proactivo y responsable, con una sólida capacidad de aprendizaje y facilidad para adaptarme a nuevos desafíos. Con orientación clara en la resolución de problemas, me enfoco en generar soluciones prácticas y efectivas que aporten valor real. Tengo experiencia sólida en .NET Core, C#, SQL Server, Flutter y arquitecturas modernas, combinado con habilidades en prototipado con Figma y buenas prácticas de desarrollo.",
     education: [
         {
             institution: "USAP | Universidad de San Pedro Sula",
@@ -33,13 +33,13 @@ export const cvData = {
             company: "Asociación Hondureña de Maquiladores",
             role: "Desarrollador de software",
             period: "Oct 2024 - Oct 2025",
-            description: "Desarrollo y manejo de bases de datos en SQL Server. Desarrollo de backend con .NET Core. Desarrollo de aplicaciones web y móviles. Desarrollo de prototipos con Figma."
+            description: "Desarrollo y administración de bases de datos complejas en SQL Server. Desarrollo de backend robusto con .NET Core. Construcción de aplicaciones web modernas con Angular y React, así como aplicaciones móviles con Flutter. Diseño y prototipado de interfaces con Figma para optimizar la experiencia del usuario."
         },
         {
             company: "Grupo Alza",
             role: "Práctica Profesional",
             period: "Ago 2024 - Sep 2024",
-            description: "Soporte técnico y auditoría a usuarios. Mantenimiento Preventivo y correctivo a portátiles."
+            description: "Soporte técnico especializado y auditoría a usuarios. Mantenimiento preventivo y correctivo de equipos. Experiencia en diagnóstico y resolución de problemas técnicos."
         }
     ],
     skills: {
@@ -81,8 +81,8 @@ export const cvData = {
         firstName: "DEYBY",
         lastName: "DERAS",
         subtitle: "SOFTWARE DEVELOPER",
-        description: "Desarrollador Full Stack con experiencia en.NET Core, React y arquitecturas modernas.- San Pedro Sula, Honduras.",
-        cvPath: "/assets/Deyby_Cardenas_CV.pdf",
+        description: "Desarrollador Full Stack con experiencia en .NET Core, Angular, React y arquitecturas modernas. San Pedro Sula, Honduras.",
+        cvPath: "/assets/Deyby_Cardenas_Curriculum.pdf",
         whatsappLink: "https://wa.me/50489290835"
     },
 
@@ -97,12 +97,12 @@ export const cvData = {
             accent2: "móviles"
         },
         descriptions: [
-            "Me apasiona desarrollar software que resuelve problemas reales y genera impacto. Enfocado en crear aplicaciones escalables, seguras y mantenibles, utilizando tecnologías modernas y buenas prácticas de desarrollo.",
-            "Tengo experiencia colaborando en equipos multidisciplinarios, participando en el diseño, desarrollo y mejora continua de soluciones digitales enfocadas en rendimiento y experiencia de usuario."
+            "Soy un desarrollador Full Stack con experiencia práctica en desarrollo backend con .NET Core, construcción de APIs RESTful, y manejo avanzado de SQL Server. En frontend, trabajo con React y Angular para crear interfaces modernas. También tengo experiencia en desarrollo mobile con Flutter.",
+            "Mi fortaleza está en la colaboración efectiva dentro de equipos, la adaptabilidad frente a nuevos desafíos, y mi capacidad para resolver problemas complejos de forma práctica. Enfocado en escribir código limpio, escalable y mantenible que realmente agregue valor."
         ],
         status: {
             location: "● Honduras",
-            availability: "● Disponible para proyectos"
+            availability: "● Disponible para proyectos y empleo tiempo completo"
         }
     },
 
@@ -131,7 +131,7 @@ export const cvData = {
 
         {
             title: "Josidk Plantilla Admin",
-            description: "plataforma de gestión empresarial moderna diseñada para centralizar operaciones, análisis y administración de negocios en una sola interfaz intuitiva. Su diseño combina elegancia, rendimiento y accesibilidad mediante una estética minimalista con una paleta de colores totalmente personalizable, transmite exclusividad y profesionalismo.",
+            description: "Plantilla empresarial moderna construida con Angular 18 y TypeScript. Incluye dashboard completo con gráficas, kanban interactivo, módulo eCommerce con CRUD, autenticación segura, componentes reutilizables y personalización total de temas. Diseñada para ser escalable, accesible y lista para producción.",
             image: "/assets/Shot2.png",
             technologies: ["TypeScript", "Angular +18"],
             link: "",
